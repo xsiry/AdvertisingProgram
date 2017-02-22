@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<meta name="description" content="">
+		<meta name="author" content="xsiry">
+
+		<title>方格子</title>
+
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/bootstrapValidator.css" rel="stylesheet" />
+
+		<style>
+			body {
+				height: 100%;
+				background: #F7ECB5;
+				overflow: hidden;
+			}
+			
+			canvas {
+				z-index: -1;
+				position: absolute;
+			}
+			/*透明输入框*/
+			
+			.admin_login {
+				width: 400px;
+				height: auto;
+				overflow: hidden;
+				margin: 10% auto 0 auto;
+				padding: 40px;
+				box-shadow: 0 -15px 30px #F0AD4E;
+				border-radius: 5px;
+			}
+			
+			.opacity_text {
+				opacity: 0.6;
+				transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+				-webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+				height: 34px;
+				padding: 6px 12px;
+				border: none;
+			}
+			
+			.admin_login div .checkcode {
+				width: 200px;
+				height: 42px;
+			}
+			
+			.admin_login button {
+				border: none;
+				color: #f4f4f4;
+				background: #398439;
+			}
+			
+			.admin_login div .checkcode canvas {
+				margin-left: 20px;
+				width: 100px;
+				height: 34px;
+				z-index: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container admin_login">
+			<figure>
+				<img src="img/logo.jpg" class="center-block" />
+				<figcaption>
+					<h4 class="form-signin-heading text-center text-info"><strong>方格子●广告发布系统</strong></h4>
+				</figcaption>
+			</figure>
+			<form class="form-signin" id="loginFrom">
+				<div class="form-group has-success has-feedback">
+					<input type="text" id="inputUsername" name='inputUsername' class="form-control opacity_text" placeholder="用户名" required autofocus>
+					<span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
+				</div>
+				<div class="form-group has-success has-feedback">
+					<input type="password" id="inputPassword" name='inputPassword' class="form-control opacity_text" placeholder="密码" required>
+					<span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+				</div>
+				<div class="form-group has-success">
+					<div class="checkcode">
+						<input type="text" id="J_codetext" placeholder="验证码" maxlength="4" class="form-control opacity_text pull-left">
+						<canvas id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+					</div>
+				</div>
+				<div class="checkbox">
+					<label class="pull-left">
+		            <input type="checkbox" id="rmbUser" name="saveCookie"> <strong style="font-family: '微软雅黑';">记住账号</strong>
+		          </label>
+					<label class="pull-right">
+		            <input type="checkbox" id="rmbPassWord" name="saveCookie"> <strong style="font-family: '微软雅黑';">记住密码</strong>
+		          </label>
+				</div>
+				<button class="btn btn-block" onclick="ajaxSubmit()">登录</button>
+			</form>
+		</div>
+		<!-- /container -->
+	</body>
+
+	<!-- JQuery core JS -->
+	<script src="js/jquery-3.1.1.js"></script>
+	<!-- Bootstrap core JS -->
+	<script src="js/bootstrap.js"></script>
+	<!-- 验证码 -->
+	<script src="js/verificationNumbers.js" tppabs="js/verificationNumbers.js"></script>
+	<!-- bootstrapValidator core JS -->
+	<script src="js/bootstrapValidator.js"></script>
+	<!-- jquery-cookie core JS -->
+	<script src="js/jquery.cookie.js"></script>
+	<!-- 背景特效 -->
+	<script src="js/Particleground.js" tppabs="js/Particleground.js"></script>
+	<!-- 自己定义的js -->
+	<script type="text/javascript">
+		// 表单验证
+		function validator() {
+			$('#loginFrom').bootstrapValidator({
+				message: '该项不能为空',
+				fields: {
+					inputUsername: {
+						message: '账号不能为空',
+						validators: {
+							notEmpty: {
+								message: '账号不能为空'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z0-9_]+$/,
+								message: '账号只能由字母、数字和下划线组成'
+							}
+						}
+					},
+					inputPassword: {
+						validators: {
+							notEmpty: {
+								message: '密码不能为空'
+							}
+						}
+					}
+				}
+			})
+		};
+		// 异步提交表单
+		function ajaxSubmit() {
+			// 验证码核验
+			validate();
+			//			var options = {
+			//				type: 'GET', // 测试暂用GET
+			//				url: 'login.json',
+			//				success: function(data) {
+			//					if(data.success) {
+			//						saveUserInfo();
+			//						location.href = "index.html";
+			//					} else {
+			//						alert("用户名或密码错误，请重新登录！");
+			//						return false;
+			//					}
+			//				}
+			//			};
+			//
+			//			// ajaxForm 
+			//			$("#loginFrom").ajaxForm(options);
+		};
+		// 检查Cookie，并设置
+		function checkCookie() {
+			// 记住密码选中时，记住账号则自动选中 反之
+			$('#rmbPassWord').click(function() {
+				$("#rmbPassWord").is(':checked') == true ? $("#rmbUser").prop("checked", 'true') : $("#rmbUser").prop("checked", false);
+			});
+
+			//初始化页面时验证是否记住了帐号
+			if($.cookie("rmbUser") == "true") {
+				$("#rmbUser").prop("checked", true);
+				$("#inputUsername").val($.cookie("userName"));
+			};
+
+			//初始化页面时验证是否记住了密码
+			if($.cookie("rmbPassWord") == "true") {
+				$("#rmbPassWord").prop("checked", true);
+				$("#inputPassword").val($.cookie("passWord"));
+			};
+		};
+
+		//保存用户信息，存储一个带7天期限的 cookie 或者 清除 cookie
+		function saveUserInfo() {
+			// 保存帐号和密码
+			if($("#rmbUser").is(':checked') == true && $("#rmbPassWord").is(':checked') == true) {
+				var userName = $("#inputUsername").val();
+				var passWord = $("#inputPassword").val();
+
+				$.cookie("rmbUser", "true", { expires: 7 });
+				$.cookie("rmbPassWord", "true", { expires: 7 });
+				$.cookie("userName", userName, { expires: 7 });
+				$.cookie("passWord", passWord, { expires: 7 });
+
+				// 只保存帐号
+			} else if($("#rmbUser").is(':checked') == true) {
+				var userName = $("#inputUsername").val();
+
+				$.cookie("rmbUser", "true", { expires: 7 });
+				$.cookie("userName", userName, { expires: 7 });
+
+				// 清除用户信息的 cookie
+			} else {
+				$.cookie("rmbUser", "false", { expires: -1 });
+				$.cookie("rmbPassWord", "false", { expires: -1 });
+				$.cookie("userName", '', { expires: -1 });
+				$.cookie("passWord", '', { expires: -1 });
+			}
+		};
+
+		$(function() {
+			//粒子背景特效
+  $('body').particleground({
+    dotColor: '#5cbdaa',
+    lineColor: '#5cbdaa'
+  });
+			createCode(); //验证码
+			checkCookie();
+			validator();
+			ajaxSubmit();
+		})
+	</script>
+
+</html>
