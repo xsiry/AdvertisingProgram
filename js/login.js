@@ -1,6 +1,6 @@
 // 表单验证
 function validator() {
-	$('#loginFrom').bootstrapValidator({
+	$('#loginForm').bootstrapValidator({
 		message: '该项不能为空',
 		fields: {
 			inputUsername: {
@@ -30,22 +30,26 @@ function ajaxSubmit() {
 	// 验证码核验
 	validate();
 	saveUserInfo();
-	//			var options = {
-	//				type: 'GET', // 测试暂用GET
-	//				url: 'login.json',
-	//				success: function(data) {
-	//					if(data.success) {
-	//						saveUserInfo();
-	//						location.href = "index.html";
-	//					} else {
-	//						alert("用户名或密码错误，请重新登录！");
-	//						return false;
-	//					}
-	//				}
-	//			};
-	//
-	//			// ajaxForm 
-	//			$("#loginFrom").ajaxForm(options);
+
+	var data = {};
+	var arr = $('form').serializeArray();
+	$.each(arr, function() {
+		data[this.name] = this.value;
+	});
+
+	$.ajax({
+		type: 'POST',
+		url: 'login.json',
+		data: data,
+		dataType: 'json',
+		success: function(data) {
+			saveUserInfo();
+			location.href = "index.html";
+		},
+		error: function() {
+			alert("修改密码错误，请重新输入");
+		}
+	});
 };
 // 检查Cookie，并设置
 function checkCookie() {
@@ -85,7 +89,7 @@ function saveUserInfo() {
 
 		$.cookie("rmbUser", "true", { expires: 7 });
 		$.cookie("userName", userName, { expires: 7 });
-		
+
 		$.cookie("rmbPassWord", "false", { expires: -1 });
 		$.cookie("passWord", '', { expires: -1 });
 		// 清除用户信息的 cookie
