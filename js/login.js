@@ -29,6 +29,7 @@ function validator() {
 function ajaxSubmit() {
 	// 验证码核验
 	validate();
+	saveUserInfo();
 	//			var options = {
 	//				type: 'GET', // 测试暂用GET
 	//				url: 'login.json',
@@ -84,7 +85,9 @@ function saveUserInfo() {
 
 		$.cookie("rmbUser", "true", { expires: 7 });
 		$.cookie("userName", userName, { expires: 7 });
-
+		
+		$.cookie("rmbPassWord", "false", { expires: -1 });
+		$.cookie("passWord", '', { expires: -1 });
 		// 清除用户信息的 cookie
 	} else {
 		$.cookie("rmbUser", "false", { expires: -1 });
