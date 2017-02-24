@@ -1,5 +1,5 @@
 // 表单验证
-function validator() {
+function inputValidator() {
 	$('#loginForm').bootstrapValidator({
 		message: '该项不能为空',
 		fields: {
@@ -27,29 +27,67 @@ function validator() {
 };
 // 异步提交表单
 function ajaxSubmit() {
-	// 验证码核验
-	validate();
-	saveUserInfo();
-
-	var data = {};
-	var arr = $('form').serializeArray();
-	$.each(arr, function() {
-		data[this.name] = this.value;
-	});
-
-	$.ajax({
-		type: 'POST',
-		url: 'login.json',
-		data: data,
-		dataType: 'json',
-		success: function(data) {
-			saveUserInfo();
-			location.href = "index.html";
-		},
-		error: function() {
-			alert("修改密码错误，请重新输入");
+	$("#loginForm").submit(function() {
+		if(!$("#loginForm").data('bootstrapValidator').isValid()) {
+			return false;
 		}
-	});
+		if( !validateCode()) {
+			return false;
+		}
+
+		var data = {};
+		var arr = $("#loginForm").serializeArray();
+		$.each(arr, function() {
+			data[this.name] = this.value;
+		});
+
+		$.ajax({
+			type: 'GET',
+			url: 'login.json',
+			data: data,
+			dataType: 'json',
+			success: function(data) {
+				if(data.status == "success") {
+					saveUserInfo();
+					location.href = "index.html";
+					$.gritter.add({
+						title: '登录成功',
+						sticky: false,
+						time: 1000,
+						speed: 500,
+						position: 'bottom-right',
+						class_name: 'gritter-success'
+					});
+				} else {
+					$.gritter.add({
+						title: '登录失败',
+						text: data.msg,
+						sticky: false,
+						time: 1000,
+						speed: 500,
+						position: 'bottom-right',
+						class_name: 'gritter-error'
+					});
+					return false;
+				}
+
+			},
+			error: function() {
+				$.gritter.add({
+					title: '登录失败',
+					text: '未知错误，请稍后再试',
+					sticky: false,
+					time: 1000,
+					speed: 500,
+					position: 'bottom-right',
+					class_name: 'gritter-error'
+				});
+				$('#inputUsername').select();
+				$('#inputUsername').focus();
+			}
+		});
+	})
+
 };
 // 检查Cookie，并设置
 function checkCookie() {
