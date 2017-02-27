@@ -6,7 +6,8 @@ var gridData = {
 		"BusinessContact": "马化腾",
 		"ContactInformation": "18888888888",
 		"Added": "陈二狗",
-		"AddTime": "2016-12-15 16:07"
+		"AddTime": "2016-12-15 16:07",
+		"ApplyStatus": true
 	}, {
 		"ResourcesID": "323422",
 		"ADName": "魔法王座",
@@ -14,7 +15,8 @@ var gridData = {
 		"BusinessContact": "丁磊",
 		"ContactInformation": "13999999999",
 		"Added": "李小花",
-		"AddTime": "2016-12-15 16:07"
+		"AddTime": "2016-12-15 16:07",
+		"ApplyStatus": false
 	}],
 	Total: 2
 };
@@ -31,6 +33,7 @@ function f_initGrid() {
 			{ display: '联系方式', name: 'ContactInformation', editor: { type: 'text' }, minWidth: 140, width: '15%' },
 			{ display: '添加人', name: 'Added', minWidth: 60, editor: { type: 'text' }, width: '10%' },
 			{ display: '添加时间', name: 'AddTime', tyep: 'date', format: 'yyyy-mm-dd HH:mm:ss', minWidth: 140, width: '15%' },
+			{ name: 'ApplyStatus', tyep: 'int', frozen: true },
 			{
 				display: '操作',
 				isSort: false,
@@ -39,11 +42,11 @@ function f_initGrid() {
 				render: function(rowdata, rowindex, value) {
 					var h = "";
 					if(!rowdata._editing) {
-						h += "<button type='button' onclick='beginEdit(" + rowindex + ")' class='btn btn-info btn-xs row-btn'>修改</button> ";
-						h += "<button type='button' onclick='deleteRow(" + rowindex + ")' class='btn btn-danger btn-xs row-btn'>上架</button> ";
+						h += "<button type='button' onclick='beginEdit(" + rowindex + ")' class='btn btn-outline btn-info btn-xs row-btn'>修改</button> ";
+						h += "<button type='button' onclick='" + (rowdata.ApplyStatus ? "noApplyRow" : "applyRow") + "(" + rowindex + ")' class='btn btn-outline btn-danger btn-xs row-btn'>" + (rowdata.ApplyStatus ? "下架" : "上架") + "</button> ";
 					} else {
-						h += "<button type='button' onclick='endEdit(" + rowindex + ")' class='btn btn-primary btn-xs row-btn'>提交</button> ";
-						h += "<button type='button' onclick='cancelEdit(" + rowindex + ")' class='btn btn-info btn-xs row-btn'>取消</button> ";
+						h += "<button type='button' onclick='endEdit(" + rowindex + ")' class='btn btn-outline btn-primary btn-xs row-btn'>提交</button> ";
+						h += "<button type='button' onclick='cancelEdit(" + rowindex + ")' class='btn btn-outline btn-info btn-xs row-btn'>取消</button> ";
 					}
 					return h;
 				}
@@ -55,10 +58,30 @@ function f_initGrid() {
 		enabledEdit: true,
 		clickToEdit: false,
 		data: gridData,
-		height: '91%'
+		height: '91%',
+		width: '100%'
 	});
 }
+/*
+ * 搜索广告
+ */
+function f_search() {
+	g.options.data = $.extend(true, {}, gridData);
+	g.loadData(f_getWhere());
+}
 
+function f_getWhere() {
+	if(!g) return null;
+	var clause = function(rowdata, rowindex) {
+		var key = $("#ADNameSearch").val();
+		return rowdata.ADName.indexOf(key) > -1;
+	};
+	return clause;
+}
+
+/*
+ * 功能操作
+ */
 function beginEdit(rowid) {
 	manager.beginEdit(rowid);
 }
@@ -71,12 +94,55 @@ function endEdit(rowid) {
 	manager.endEdit(rowid);
 }
 
-function deleteRow(rowid) {
-	if(confirm('确定删除?')) {
-		manager.deleteRow(rowid);
-	}
+function applyRow(rowid) {
+	swal({
+		title: '确定上架?',
+		text: '上架后，广告“' + g.getRow(rowid).ADName + '”将可以进行投放',
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonText: '上架!',
+		cancelButtonText: '取消'
+	}).then(function() {
+		swal(
+			'上架成功!',
+			'广告“' + g.getRow(rowid).ADName + '”上架成功.',
+			'success'
+		)
+	}, function(dismiss) {
+		if(dismiss === 'cancel') {
+			swal(
+				'已取消',
+				'广告“' + g.getRow(rowid).ADName + '”未上架 :)',
+				'error'
+			)
+		}
+	})
 }
-var newrowid = 100;
+
+function noApplyRow(rowid) {
+	swal({
+		title: '确定下架?',
+		text: '下架后，广告“' + g.getRow(rowid).ADName + '”将无法进行投放',
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonText: '下架!',
+		cancelButtonText: '取消'
+	}).then(function() {
+		swal(
+			'下架成功!',
+			'广告“' + g.getRow(rowid).ADName + '”下架成功.',
+			'success'
+		)
+	}, function(dismiss) {
+		if(dismiss === 'cancel') {
+			swal(
+				'已取消',
+				'广告“' + g.getRow(rowid).ADName + '”未下架 :)',
+				'error'
+			)
+		}
+	})
+}
 
 function addNewRow() {
 	manager.addEditRow();
