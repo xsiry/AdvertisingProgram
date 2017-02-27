@@ -4,7 +4,7 @@ var gridData = {
 		"ADName": "扑鱼达人",
 		"BusinessFirm": "腾讯",
 		"BusinessContact": "马化腾",
-		"ContactInformation": "18888888888",
+		"phoneNumber": "18888888888",
 		"Added": "陈二狗",
 		"AddTime": "2016-12-15 16:07",
 		"ApplyStatus": true
@@ -13,7 +13,7 @@ var gridData = {
 		"ADName": "魔法王座",
 		"BusinessFirm": "网易",
 		"BusinessContact": "丁磊",
-		"ContactInformation": "13999999999",
+		"phoneNumber": "13999999999",
 		"Added": "李小花",
 		"AddTime": "2016-12-15 16:07",
 		"ApplyStatus": false
@@ -30,7 +30,7 @@ function f_initGrid() {
 			{ display: '广告名称', name: 'ADName', minWidth: 100, width: '15%' },
 			{ display: '业务厂商', name: 'BusinessFirm', minWidth: 120, width: '15%' },
 			{ display: '业务联系人', name: 'BusinessContact', editor: { type: 'text' }, minWidth: 60, width: '10%' },
-			{ display: '联系方式', name: 'ContactInformation', editor: { type: 'text' }, minWidth: 140, width: '15%' },
+			{ display: '联系方式', name: 'phoneNumber', editor: { type: 'text' }, minWidth: 140, width: '15%' },
 			{ display: '添加人', name: 'Added', minWidth: 60, editor: { type: 'text' }, width: '10%' },
 			{ display: '添加时间', name: 'AddTime', tyep: 'date', format: 'yyyy-mm-dd HH:mm:ss', minWidth: 140, width: '15%' },
 			{ name: 'ApplyStatus', tyep: 'int', frozen: true },
@@ -182,3 +182,62 @@ function getNowTime() {
 	var now = year + '-' + p(month) + "-" + p(date) + " " + p(h) + ':' + p(m) + ":" + p(s);
 	return now;
 }
+/*
+ * 广告业务添加验证
+ */
+function addADProgramValidator() {
+	$('#addADProgramForm').formValidation({
+			autoFocus: true,
+			locale: 'zh_CN',
+			message: '该值无效，请重新输入',
+			err: {
+				container: 'tooltip'
+			},
+			icon: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				ADName: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+				BusinessFirm: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+				BusinessContact: {
+					validators: {
+						notEmpty: {}
+					}
+				},
+				phoneNumber: {
+					validators: {
+						notEmpty: {},
+						digits: {},
+						phone: {
+							country: 'CN'
+						}
+					}
+				}
+			}
+		})
+		.on('success.form.fv', function(e) {
+			// Prevent form submission
+			e.preventDefault();
+
+			// Get the form instance
+			var $form = $(e.target);
+
+			// Get the FormValidation instance
+			var bv = $form.data('formValidation');
+
+			// Use Ajax to submit form data
+			$.post('login.json', $form.serialize(), function(result) {
+				console.log(result);
+			}, 'json');
+		});
+};

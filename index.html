@@ -11,22 +11,22 @@
 
 		<title>方格子●广告发布系统</title>
 
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="css/plugins/formValidation.css" />
 		<!-- Toastr style -->
-		<link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
 
 		<!-- Gritter -->
-		<link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+		<link rel="stylesheet" href="js/plugins/gritter/jquery.gritter.css" />
 		<!-- ligerUI -->
-		<link href="css/plugins/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
-		<link href="css/plugins/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
-		<link href="css/plugins/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/ligerUI/skins/Aqua/css/ligerui-all.css" />
+		<link rel="stylesheet" href="css/plugins/ligerUI/skins/ligerui-icons.css" type="text/css" />
+		<link rel="stylesheet" href="css/plugins/ligerUI/skins/Gray2014/css/all.css" />
 
-		<link href="css/animate.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<link href="css/plugins/sweetalert2/sweetalert2.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/animate.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/plugins/sweetalert2/sweetalert2.css" />
 		<link rel="stylesheet" href="css/mode/index.css" />
 
 	</head>
@@ -139,8 +139,8 @@
 											<button class="btn btn-primary " type="button" data-toggle="modal" data-target="#addADProgram"><i class="fa fa-paste"></i> 新建广告业务</button>
 										</div>
 										<div class="col-sm-3 col-md-offset-4">
-											<div class="input-group"><input type="text" placeholder="搜索业务" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span></div>
+											<div class="input-group"><input type="text" placeholder="输入广告名称" id="ADNameSearch" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" id="ADNameSearchBtn" onclick="f_search()" class="btn btn-sm btn-primary"> 搜索</button> </span></div>
 										</div>
 									</div>
 
@@ -152,46 +152,48 @@
 													<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 													<h4 class="modal-title">新建广告业务</h4>
 												</div>
-												<div class="modal-body">
-													<div class="form-horizontal">
+												<form class="form-horizontal" id="addADProgramForm">
+													<div class="modal-body">
+
 														<div class="form-group"><label class="col-sm-2 control-label">广告名称</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control">
+																<input type="text" class="form-control" name="ADName" autofocus>
 																<span class="help-block m-b-none">（广告名称唯一性不可修改）</span>
 															</div>
 														</div>
 														<div class="hr-line-dashed"></div>
 														<div class="form-group"><label class="col-sm-2 control-label">业务厂商</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control">
+																<input type="text" class="form-control" name="BusinessFirm">
 																<span class="help-block m-b-none">（添加后不可修改）</span>
 															</div>
 														</div>
 														<div class="hr-line-dashed"></div>
 														<div class="form-group"><label class="col-sm-2 control-label">业务联系人</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control">
+																<input type="text" class="form-control" name="BusinessContact">
 															</div>
 														</div>
 														<div class="hr-line-dashed"></div>
 														<div class="form-group"><label class="col-sm-2 control-label">联系方式</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control">
+																<input type="text" class="form-control" name="phoneNumber">
 															</div>
 														</div>
 														<div class="hr-line-dashed"></div>
 														<div class="form-group"><label class="col-sm-2 control-label">备注</label>
 															<div class="col-sm-10">
-																<input type="text" class="form-control">
+																<input type="text" class="form-control" name="ADComment">
 															</div>
 														</div>
-													</div>
-												</div>
 
-												<div class="modal-footer">
-													<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
-													<button type="button" class="btn btn-primary">保存</button>
-												</div>
+													</div>
+
+													<div class="modal-footer">
+														<button type="submit" class="btn btn-primary">保存</button>
+														<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>
@@ -218,26 +220,29 @@
 		</div>
 
 		<!-- Mainly scripts -->
-		<script src="js/jquery-3.1.1.js" type="text/javascript"></script>
-		<script src="js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
-		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script type="text/javascript" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="js/plugins/formValidation/formValidation.js"></script>
+		<script type="text/javascript" src="js/plugins/formValidation/framework/bootstrap.js"></script>
+		<script type="text/javascript" src="js/plugins/formValidation/language/zh_CN.js"></script>
 
 		<!-- Custom and plugin javascript -->
-		<script src="js/mode/inspinia.js" type="text/javascript"></script>
-		<script src="js/plugins/pace/pace.min.js" type="text/javascript"></script>
-		<script src="js/plugins/sweetalert2/sweetalert2.js"></script>
+		<script type="text/javascript" src="js/mode/inspinia.js"></script>
+		<script type="text/javascript" src="js/plugins/pace/pace.min.js"></script>
+		<script type="text/javascript" src="js/plugins/sweetalert2/sweetalert2.js"></script>
 
 		<!-- GITTER -->
-		<script src="js/plugins/gritter/jquery.gritter.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/plugins/gritter/jquery.gritter.min.js"></script>
 		<!-- ligerUI -->
-		<script src="js/plugins/ligerUI/core/base.js" type="text/javascript"></script>
-		<script src="js/plugins/ligerUI/ligerui.all.js" type="text/javascript"></script>
-		<script src="js/plugins/ligerUI/ligerDateEditor.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/plugins/ligerUI/core/base.js"></script>
+		<script type="text/javascript" src="js/plugins/ligerUI/ligerui.all.js"></script>
+		<script type="text/javascript" src="js/plugins/ligerUI/ligerDateEditor.js"></script>
 		<!-- Toastr -->
-		<script src="js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/plugins/toastr/toastr.min.js"></script>
 
-		<script src="js/mode/index.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/mode/index.js"></script>
 
 		<script>
 			$('#ADNameSearch').keypress(function(e) {
@@ -260,6 +265,7 @@
 			});
 
 			$(f_initGrid);
+			addADProgramValidator();
 		</script>
 	</body>
 
