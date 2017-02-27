@@ -25,3 +25,6 @@
 .row-btn {
 	margin-top: 2%;
 }
+.tooltip {
+	z-index: 3000 !important;
+}
