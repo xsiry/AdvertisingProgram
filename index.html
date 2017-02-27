@@ -20,37 +20,14 @@
 		<!-- Gritter -->
 		<link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 		<!-- ligerUI -->
-		<link href="css/plugins/ligerUI/skins/Aqua/css/ligerui-grid.css" rel="stylesheet" />
+		<link href="css/plugins/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
 		<link href="css/plugins/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
-		<link href="css/plugins/ligerUI/skins/Gray2014/css/grid.css" rel="stylesheet" />
+		<link href="css/plugins/ligerUI/skins/Gray2014/css/all.css" rel="stylesheet" />
 
 		<link href="css/animate.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
-		<style>
-			.l-panel-bar {
-				line-height: 19px;
-			}
-			
-			.wrapper-content {
-				padding: 12px 10px 40px;
-			}
-			
-			.ibox {
-				clear: both;
-				margin-bottom: 12px;
-				margin-top: 0;
-				padding: 0;
-			}
-			
-			.inmodal .modal-header {
-				padding: 5px 15px;
-				text-align: center;
-			}
-			
-			.inmodal .modal-title {
-				font-size: 20px;
-			}
-		</style>
+		<link rel="stylesheet" href="css/mode/index.css" />
+
 	</head>
 
 	<body>
@@ -158,38 +135,67 @@
 								<div class="ibox-content">
 									<div class="row">
 										<div class="col-sm-5 m-b-xs">
-											<button class="btn btn-info " type="button" data-toggle="modal" data-target="#myModal5"><i class="fa fa-paste"></i> 新建广告业务</button>
+											<button class="btn btn-primary " type="button" data-toggle="modal" data-target="#addADProgram"><i class="fa fa-paste"></i> 新建广告业务</button>
 										</div>
-										<div class="col-sm-4 m-b-xs">
-											<div data-toggle="buttons" class="btn-group">
-												<label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
-												<label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
-												<label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-											</div>
-										</div>
-										<div class="col-sm-3">
+										<div class="col-sm-3 col-md-offset-4">
 											<div class="input-group"><input type="text" placeholder="搜索业务" class="input-sm form-control"> <span class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span></div>
 										</div>
 									</div>
-									<div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+
+									<!--add AD window-->
+									<div class="modal inmodal fade" id="addADProgram" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-lg">
 											<div class="modal-content">
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 													<h4 class="modal-title">新建广告业务</h4>
-													<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
 												</div>
 												<div class="modal-body">
+													<div class="form-horizontal">
+														<div class="form-group"><label class="col-sm-2 control-label">广告名称</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control">
+																<span class="help-block m-b-none">（广告名称唯一性不可修改）</span>
+															</div>
+														</div>
+														<div class="hr-line-dashed"></div>
+														<div class="form-group"><label class="col-sm-2 control-label">业务厂商</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control">
+																<span class="help-block m-b-none">（添加后不可修改）</span>
+															</div>
+														</div>
+														<div class="hr-line-dashed"></div>
+														<div class="form-group"><label class="col-sm-2 control-label">业务联系人</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="hr-line-dashed"></div>
+														<div class="form-group"><label class="col-sm-2 control-label">联系方式</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="hr-line-dashed"></div>
+														<div class="form-group"><label class="col-sm-2 control-label">备注</label>
+															<div class="col-sm-10">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+													</div>
 												</div>
 
 												<div class="modal-footer">
-													<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Save changes</button>
+													<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+													<button type="button" class="btn btn-primary">保存</button>
 												</div>
 											</div>
 										</div>
 									</div>
+									<!--add AD window end-->
+
 									<div id="maingrid">
 									</div>
 								</div>
@@ -211,22 +217,25 @@
 		</div>
 
 		<!-- Mainly scripts -->
-		<script src="js/jquery-3.1.1.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="js/jquery-3.1.1.js" type="text/javascript"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 
 		<!-- Custom and plugin javascript -->
-		<script src="js/inspinia.js"></script>
-		<script src="js/plugins/pace/pace.min.js"></script>
+		<script src="js/mode/inspinia.js" type="text/javascript"></script>
+		<script src="js/plugins/pace/pace.min.js" type="text/javascript"></script>
 
 		<!-- GITTER -->
-		<script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+		<script src="js/plugins/gritter/jquery.gritter.min.js" type="text/javascript"></script>
 		<!-- ligerUI -->
-		<script src="js/plugins/ligerUI/core/base.js"></script>
-		<script src="js/plugins/ligerUI/ligerui.all.js"></script>
+		<script src="js/plugins/ligerUI/core/base.js" type="text/javascript"></script>
+		<script src="js/plugins/ligerUI/ligerui.all.js" type="text/javascript"></script>
+		<script src="js/plugins/ligerUI/ligerDateEditor.js" type="text/javascript"></script>
 		<!-- Toastr -->
-		<script src="js/plugins/toastr/toastr.min.js"></script>
+		<script src="js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
+
+		<script src="js/mode/index.js" type="text/javascript"></script>
 
 		<script>
 			$(function() {
@@ -237,64 +246,12 @@
 						showMethod: 'slideDown',
 						timeOut: 4000
 					};
-					toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
+					toastr.success('当前时间：' + getNowTime(), '欢迎进入 方格子●广告发布系统');
 
 				}, 1300);
-
-				$('#addADBusiness').click(function() {
-					$('#contest_modal').show();
-				});
 			});
 
-			$(function() {
-				function itemclick(item) {
-					alert(item.text);
-				}
-				var gridData = {
-					Rows: [{
-						"ResourcesID": "123123",
-						"ADName": "扑鱼达人",
-						"BusinessFirm": "腾讯",
-						"BusinessContact": "马化腾",
-						"ContactInformation": "18888888888",
-						"Added": "陈二狗",
-						"AddTime": "2016-12-15 16:07"
-					}, {
-						"ResourcesID": "323422",
-						"ADName": "魔法王座",
-						"BusinessFirm": "网易",
-						"BusinessContact": "丁磊",
-						"ContactInformation": "13999999999",
-						"Added": "李小花",
-						"AddTime": "2016-12-15 16:07"
-					}],
-					Total: 2
-				};
-				$(function() {
-					window['g'] =
-						$("#maingrid").ligerGrid({
-							height: '95%',
-							columns: [
-								{ display: '资源ID', name: 'ResourcesID', minWidth: 60, width: '10%' },
-								{ display: '广告名称', name: 'ADName', minWidth: 100, width: '15%' },
-								{ display: '业务厂商', name: 'BusinessFirm', minWidth: 120, width: '15%' },
-								{ display: '业务联系人', name: 'BusinessContact', minWidth: 60, width: '10%' },
-								{ display: '联系方式', name: 'ContactInformation', minWidth: 140, width: '20%' },
-								{ display: '添加人', name: 'Added', minWidth: 60, width: '10%' },
-								{ display: '添加时间', name: 'AddTime', minWidth: 140, width: '20%' }
-							],
-							data: gridData,
-							pageSize: 30,
-							rownumbers: true
-						});
-
-					$("#pageloading").hide();
-				});
-
-				function deleteRow() {
-					g.deleteSelectedRow();
-				}
-			});
+			$(f_initGrid);
 		</script>
 	</body>
 

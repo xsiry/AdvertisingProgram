@@ -24,15 +24,16 @@ canvas {
 	box-shadow: 0 -15px 20px #122B40;
 	border-radius: 5px;
 	font-family: "Microsoft Yahei";
+	background-color: white;
+	opacity: 0.8;
 }
 
 .opacity_text {
-	opacity: 0.6;
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 	-webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
 	height: 34px;
 	padding: 6px 12px;
-	border: none;
+	border-color:#CE8735 ;
 }
 
 .admin_login div .checkcode {
@@ -47,7 +48,7 @@ canvas {
 }
 
 .admin_login strong {
-	color: #f4f4f4;
+	color: #101010;
 }
 
 .admin_login div .checkcode canvas {
