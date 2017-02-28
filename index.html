@@ -90,25 +90,17 @@
 				</div>
 				<!--主体显示开始-->
 				<!--显示菜单路径-->
-				<div class="row wrapper border-bottom white-bg">
-					<div class="col-lg-10">
-						<ol class="breadcrumb">
-							<li>
-								<label>主页</label>
-							</li>
-							<li>
-								<strong>广告业务管理</strong>
-							</li>
-						</ol>
-					</div>
+				<div id="ribbon" class="row wrapper border-bottom white-bg">
+					<span class="ribbon-button-alignment pull-left"> 
+						<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true" data-reset-msg="Would you like to RESET all your saved widgets and clear LocalStorage?"><i class="fa fa-refresh"></i></span>
+					</span>
+					<ol class="breadcrumb"></ol>
 				</div>
 				<!--显示路径结束-->
 				<!--显示列表开始-->
 				<div id="main" role="main">
-
 					<div id="content">
 					</div>
-
 				</div>
 				<!--显示列表结束-->
 				<div class="footer">
@@ -125,7 +117,7 @@
 
 		<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 		<script type="text/javascript" src="js/menusAction.js"></script>
-		
+
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 		<script type="text/javascript" src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script type="text/javascript" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -150,8 +142,6 @@
 		<script type="text/javascript" src="js/plugins/bootstrap-dialog/bootstrap-dialog.js"></script>
 
 		<script type="text/javascript" src="js/mode/index.js"></script>
-
-		
 
 		<script type="text/javascript">
 			$(function() {

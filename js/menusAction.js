@@ -5,12 +5,10 @@
 $.root_ = $('#wrapper');
 
 $.navAsAjax = true;
-
-debugState = false,
-
-enableJarvisWidgets = true,
-
-ignore_key_elms = ["#wrapper, #page-wrapper, #main"]
+var debugState = false
+  , enableJarvisWidgets = true
+  , ignore_key_elms = ["#wrapper, #page-wrapper, #main"]
+  , bread_crumb = $("#ribbon ol.breadcrumb")
 
 function checkURL() {
     var a = location.href.split("#").splice(1).join("#");
@@ -30,7 +28,7 @@ function checkURL() {
     } else {
         var e = $('nav > ul > li:first-child > a[href!="#"]');
         window.location.hash = e.attr("href"),
-        e = null 
+        e = null
     }
 }
 
@@ -44,8 +42,7 @@ function loadURL(a, b) {
         "beforeSend": function() {
             if ($.navAsAjax && $(".google_maps")[0] && b[0] == $("#content")[0]) {
                 var a = $(".google_maps")
-                  , 
-                c = 0;
+                  , c = 0;
                 a.each(function() {
                     c++;
                     var b = document.getElementById(this.id);
@@ -93,10 +90,11 @@ function loadURL(a, b) {
                 $("#content .slider").remove(),
                 debugState && console.log("\u2714 Bootstrap Slider destroyed!"))
             }
-            pagefunction = null ,
+            pagefunction = null,
             b.removeData().html(""),
             b.html('<h1 class="ajax-loading-animation"><i class="fa fa-cog fa-spin"></i> Loading...</h1>'),
             b[0] == $("#content")[0] && ($("body").find("> *").filter(":not(" + ignore_key_elms + ")").empty().remove(),
+            drawBreadCrumb(),
             $("html").animate({
                 "scrollTop": 0
             }, "fast"))
@@ -107,13 +105,41 @@ function loadURL(a, b) {
             }).html(a).delay(50).animate({
                 "opacity": "1.0"
             }, 300),
-            a = null ,
-            b = null 
+            a = null,
+            b = null
         },
         "error": function(c, d, e) {
             b.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Error requesting <span class="txt-color-red">' + a + "</span>: " + c.status + ' <span style="text-transform: capitalize;">' + e + "</span></h4>")
         },
         "async": !0
+    })
+}
+
+function drawBreadCrumb(a) {
+    var b = $("nav li.active > a")
+      , c = b.length;
+    bread_crumb.empty(),
+    bread_crumb.append($("<li>首页</li>")),
+    b.each(function() {
+        bread_crumb.append($("<li></li>").html($.trim($(this).clone().children(".badge").remove().end().text()))),
+        --c || (document.title = bread_crumb.find("li:last-child").text())
+    }),
+    void 0 != a && $.each(a, function(a, b) {
+        bread_crumb.append($("<li></li>").html(b)),
+        document.title = bread_crumb.find("li:last-child").text()
+    })
+}
+
+function resetWidgets(a) {
+    swal({
+        title: "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
+        text: a.data("reset-msg") || "Would you like to RESET all your saved widgets and clear LocalStorage?1",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+    }).then(function() {
+        location.reload()
     })
 }
 
@@ -124,3 +150,10 @@ $.navAsAjax && ($("nav").length && checkURL(),
 $(window).on("hashchange", function() {
     checkURL()
 }))
+
+$.root_.on("click", '[data-action="resetWidgets"]', function(b) {
+    var c = $(this);
+    resetWidgets(c),
+    b.preventDefault(),
+    c = null
+});

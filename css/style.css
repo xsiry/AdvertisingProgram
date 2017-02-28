@@ -3699,7 +3699,7 @@ img.circle-border {
 }
 .breadcrumb {
   background-color: #ffffff;
-  padding: 0;
+  padding: 7px;
   margin-bottom: 0;
 }
 .breadcrumb > li a {
