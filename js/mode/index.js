@@ -238,17 +238,17 @@ function addADProgramValidator() {
 			// Use Ajax to submit form data
 			$.get('login.json', $form.serialize(), function(result) {
 				var msg;
-				
+
 				toastr.options = {
-						closeButton: true,
-						progressBar: true,
-						showMethod: 'slideDown',
-						timeOut: 4000
-					};
-				if (result.success == true) {
+					closeButton: true,
+					progressBar: true,
+					showMethod: 'slideDown',
+					timeOut: 4000
+				};
+				if(result.success == true) {
 					msg = "广告业务添加成功！";
 					toastr.success(msg);
-				}else {
+				} else {
 					msg = "广告业务添加失败！";
 					toastr.error(msg);
 				};
@@ -256,28 +256,3 @@ function addADProgramValidator() {
 			}, 'json');
 		});
 };
-
-function newModal() {
-	BootstrapDialog.show({
-    title: '新建广告业务',
-    message: $('<div></div>').load('ADProgramManager/newModal.html'),
-    cssClass: 'modal inmodal fade',
-    buttons: [{
-        type: 'submit',
-        icon: 'glyphicon glyphicon-check',       
-        label: '保存',
-        cssClass: 'btn btn-primary', 
-        autospin: false,
-        action: function(dialogRef){    
-            $('#newModalForm').submit();
-        }},{
-        	id: 'newModalClose',
-        label: '取消',
-        cssClass: 'btn btn-white', 
-        autospin: false,
-        action: function(dialogRef){    
-            dialogRef.close();
-        }
-    }]
-});
-}

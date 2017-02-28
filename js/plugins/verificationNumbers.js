@@ -32,6 +32,7 @@ function validateCode() {
 		$("#J_codetext").focus();
 		$("#J_codetext").keyup(function() {
 			$("form button").removeAttr('disabled');
+			$("form button").removeClass("disabled");
 		})
 		return false;
 	} else if(inputCode != codeToUp) {
@@ -41,6 +42,7 @@ function validateCode() {
 		$("#J_codetext").focus();
 		$("#J_codetext").keyup(function() {
 			$("form button").removeAttr('disabled');
+			$("form button").removeClass("disabled");
 		})
 		createCode();
 		return false;

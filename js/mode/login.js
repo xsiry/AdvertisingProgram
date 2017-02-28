@@ -1,55 +1,48 @@
-// 表单验证
+/*
+ * 登陆验证
+ */
 function inputValidator() {
-	$('#loginForm').bootstrapValidator({
-		message: '该项不能为空',
-		fields: {
-			inputUsername: {
-				message: '账号不能为空',
-				validators: {
-					notEmpty: {
-						message: '账号不能为空'
-					},
-					regexp: {
-						regexp: /^[a-zA-Z0-9_]+$/,
-						message: '账号只能由字母、数字和下划线组成'
-					}
-				}
+	$('#loginForm').formValidation({
+			autoFocus: true,
+			locale: 'zh_CN',
+			message: '该值无效，请重新输入',
+			err: {
+				container: 'tooltip'
 			},
-			inputPassword: {
-				validators: {
-					notEmpty: {
-						message: '密码不能为空'
+			fields: {
+				inputUsername: {
+					validators: {
+						notEmpty: {},
+						regexp: {
+							regexp: /^[a-zA-Z0-9_]+$/
+						}
+					}
+				},
+				inputPassword: {
+					validators: {
+						notEmpty: {}
 					}
 				}
 			}
-		}
-	})
-};
-// 异步提交表单
-function ajaxSubmit() {
-	$("#loginForm").submit(function() {
-		if(!$("#loginForm").data('bootstrapValidator').isValid()) {
-			return false;
-		}
-		if( !validateCode()) {
-			return false;
-		}
+		})
+		.on('success.form.fv', function(e) {
+			if(!validateCode()) {
+				return false;
+			}
+			// Prevent form submission
+			e.preventDefault();
 
-		var data = {};
-		var arr = $("#loginForm").serializeArray();
-		$.each(arr, function() {
-			data[this.name] = this.value;
-		});
+			// Get the form instance
+			var $form = $(e.target);
 
-		$.ajax({
-			type: 'GET',
-			url: 'login.json',
-			data: data,
-			dataType: 'json',
-			success: function(data) {
-				if(data.status == "success") {
+			// Get the FormValidation instance
+			var bv = $form.data('formValidation');
+
+			// Use Ajax to submit form data
+			$.get('login.json', $form.serialize(), function(result) {
+				if(result.status == "success") {
 					saveUserInfo();
-					location.href = "index.html";
+					location.href = "index.html#ajax/manager.html";
 					$.gritter.add({
 						title: '登录成功',
 						sticky: false,
@@ -70,25 +63,10 @@ function ajaxSubmit() {
 					});
 					return false;
 				}
-
-			},
-			error: function() {
-				$.gritter.add({
-					title: '登录失败',
-					text: '未知错误，请稍后再试',
-					sticky: false,
-					time: 1000,
-					speed: 500,
-					position: 'bottom-right',
-					class_name: 'gritter-error'
-				});
-				$('#inputUsername').select();
-				$('#inputUsername').focus();
-			}
+			}, 'json');
 		});
-	})
-
 };
+
 // 检查Cookie，并设置
 function checkCookie() {
 	// 记住密码选中时，记住账号则自动选中 反之
