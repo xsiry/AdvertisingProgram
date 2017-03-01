@@ -1,0 +1,39 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>广告资源列表</h5>
+
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-sm-5 m-b-xs">
+							<button class="btn btn-primary " type="button" id="vertisingMntNewModalBtn"><i class="fa fa-paste"></i> 新建广告业务</button>
+						</div>
+						<div class="col-sm-3 col-md-offset-4">
+							<div class="input-group"><input type="text" placeholder="输入广告名称" id="nameSearch" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" id="nameSearchBtn" class="btn btn-sm btn-primary"> 搜索</button> </span></div>
+						</div>
+					</div>
+					<div id="maingrid">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--CMD模块化插件-->
+<script type="text/javascript" src="sea-modules/seajs/sea.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		seajs.config({
+			base: "./sea-modules/",
+			alias: {}
+		});
+		// 加载入口模块
+		seajs.use("./static/vertising_mnt/src/main")
+	});
+</script>
