@@ -1,4 +1,4 @@
-define([{
+define({
 	Rows: [{
 		"ResourcesID": "123123",
 		"ADName": "扑鱼达人",
@@ -19,4 +19,4 @@ define([{
 		"ApplyStatus": false
 	}],
 	Total: 2
-}])
+})
