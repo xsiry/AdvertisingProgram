@@ -9,7 +9,7 @@ define(function(require, exports, module) {
 			inputValidator();
 			createCode();
 			checkCookie();
-		}
+		},	
 	};
 
 	// Helpers
