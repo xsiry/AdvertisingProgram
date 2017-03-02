@@ -1,84 +1,47 @@
 define(function(require, exports, module) {
-	var manager, g;
+	$.root_ = $('div.ibox-content');
+	var manager, g, vMntData;
 	module.exports = {
 
 		init: function(data) {
+			vMntData = data;
 			f_initGrid();
-			manager.loadData($.extend(true, {}, data));
-
-			$('#nameSearch').keypress(function(e) {
-				if(e.which == "13") {
+			manager.loadData($.extend(true, {}, vMntData));
+			this._bindUI();
+		},
+		_bindUI: function() {
+			var that = this;
+			
+			// bind .name_search_btn
+			$.root_.on("click", '.name_search_btn', function(e) {
 					f_search();
-				}
-			});
-
-			$('#nameSearchBtn').on('click', function() {
-				f_search();
-			});
-
-			$("#vMntNewModalBtn").on('click', function() {
-				vMntNewModal();
-			});
-		},
-		beginEdit: function(rowid) {
-			manager.beginEdit(rowid);
-		},
-
-		cancelEdit: function(rowid) {
-			manager.cancelEdit(rowid);
-		},
-
-		endEdit: function(rowid) {
-			manager.endEdit(rowid);
-		},
-
-		applyRow: function(rowid) {
-			swal({
-				title: '确定上架?',
-				text: '上架后，广告“' + g.getRow(rowid).ADName + '”将可以进行投放',
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonText: '上架!',
-				cancelButtonText: '取消'
-			}).then(function() {
-				swal(
-					'上架成功!',
-					'广告“' + g.getRow(rowid).ADName + '”上架成功.',
-					'success'
-				)
-			}, function(dismiss) {
-				if(dismiss === 'cancel') {
-					swal(
-						'已取消',
-						'广告“' + g.getRow(rowid).ADName + '”未上架 :)',
-						'error'
-					)
-				}
 			})
-		},
-
-		noApplyRow: function(rowid) {
-			swal({
-				title: '确定下架?',
-				text: '下架后，广告“' + g.getRow(rowid).ADName + '”将无法进行投放',
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonText: '下架!',
-				cancelButtonText: '取消'
-			}).then(function() {
-				swal(
-					'下架成功!',
-					'广告“' + g.getRow(rowid).ADName + '”下架成功.',
-					'success'
-				)
-			}, function(dismiss) {
-				if(dismiss === 'cancel') {
-					swal(
-						'已取消',
-						'广告“' + g.getRow(rowid).ADName + '”未下架 :)',
-						'error'
-					)
-				}
+			// bind .name_search
+			$.root_.on("keypress", '.name_search', function(e) {
+				if (e.which == "13") f_search();
+			})
+			// bind .name_search val.length is 0
+			$.root_.on('input propertychange', '.name_search', function(e) {
+				if ($('.name_search').val().length == 0) f_search();
+			})
+			// bind .v_mnt_new_modal_btn
+			$.root_.on("click", '.v_mnt_new_modal_btn', function(e) {
+				vMntNewModal();
+			})
+			
+			// bind grid edit 
+			$.root_.on("click", '.row_btn_edit', function(e) {
+				beginEdit(e.currentTarget.tabIndex);
+			})
+			$.root_.on("click", '.row_btn_cancel', function(e) {
+				cancelEdit(e.currentTarget.tabIndex);
+			})
+			$.root_.on("click", '.row_btn_end', function(e) {
+				endEdit(e.currentTarget.tabIndex);
+			})
+			$.root_.on("click", '.row_btn_apply', function(e) {
+				var index = e.currentTarget.tabIndex;
+				e.currentTarget.textContent == "上架" ? applyRow(index) : noApplyRow(index);
 			})
 		}
 	};
@@ -107,11 +70,11 @@ define(function(require, exports, module) {
 					render: function(rowdata, rowindex, value) {
 						var h = "";
 						if(!rowdata._editing) {
-							h += "<button type='button' onclick='beginEdit(" + rowindex + ")' class='btn btn-outline btn-info btn-xs row-btn'>修改</button> ";
-							h += "<button type='button' onclick='" + (value ? "noApplyRow" : "applyRow") + "(" + rowindex + ")' class='btn btn-outline btn-danger btn-xs row-btn'>" + (value ? "下架" : "上架") + "</button> ";
+							h += "<button type='button' class='btn btn-outline btn-info btn-xs row-btn row_btn_edit'>修改</button> ";
+							h += "<button type='button' class='btn btn-outline btn-danger btn-xs row-btn row_btn_apply'>" + (value ? "下架" : "上架") + "</button> ";
 						} else {
-							h += "<button type='button' onclick='endEdit(" + rowindex + ")' class='btn btn-outline btn-primary btn-xs row-btn'>提交</button> ";
-							h += "<button type='button' onclick='cancelEdit(" + rowindex + ")' class='btn btn-outline btn-info btn-xs row-btn'>取消</button> ";
+							h += "<button type='button' class='btn btn-outline btn-primary btn-xs row-btn row_btn_end'>提交</button> ";
+							h += "<button type='button' class='btn btn-outline btn-info btn-xs row-btn row_btn_cancel'>取消</button> ";
 						}
 						return h;
 					}
@@ -131,14 +94,14 @@ define(function(require, exports, module) {
 	 * 搜索广告
 	 */
 	function f_search() {
-		g.options.data = $.extend(true, {}, vertisingMntData);
+		g.options.data = $.extend(true, {}, vMntData);
 		g.loadData(f_getWhere());
 	};
 
 	function f_getWhere() {
 		if(!g) return null;
 		var clause = function(rowdata, rowindex) {
-			var key = $("#nameSearch").val();
+			var key = $(".name_search").val();
 			return rowdata.ADName.indexOf(key) > -1;
 		};
 		return clause;
@@ -147,20 +110,66 @@ define(function(require, exports, module) {
 	/*
 	 * 功能操作
 	 */
-
-	function addNewRow() {
-		manager.addEditRow();
+	function beginEdit(rowid) {
+		manager.beginEdit(rowid);
 	};
 
-	function getSelected() {
-		var row = manager.getSelectedRow();
-		if(!row) { alert('请选择行'); return; }
-		alert(JSON.stringify(row));
+	function cancelEdit(rowid) {
+		manager.cancelEdit(rowid);
 	};
 
-	function getData() {
-		var data = manager.getData();
-		alert(JSON.stringify(data));
+	function endEdit(rowid) {
+		manager.endEdit(rowid);
+	};
+
+	function applyRow(rowid) {
+		swal({
+			title: '确定上架?',
+			text: '上架后，广告“' + g.getRow(rowid).ADName + '”将可以进行投放',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '上架!',
+			cancelButtonText: '取消'
+		}).then(function() {
+			swal(
+				'上架成功!',
+				'广告“' + g.getRow(rowid).ADName + '”上架成功.',
+				'success'
+			)
+		}, function(dismiss) {
+			if(dismiss === 'cancel') {
+				swal(
+					'已取消',
+					'广告“' + g.getRow(rowid).ADName + '”未上架 :)',
+					'error'
+				)
+			}
+		})
+	};
+
+	function noApplyRow(rowid) {
+		swal({
+			title: '确定下架?',
+			text: '下架后，广告“' + g.getRow(rowid).ADName + '”将无法进行投放',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '下架!',
+			cancelButtonText: '取消'
+		}).then(function() {
+			swal(
+				'下架成功!',
+				'广告“' + g.getRow(rowid).ADName + '”下架成功.',
+				'success'
+			)
+		}, function(dismiss) {
+			if(dismiss === 'cancel') {
+				swal(
+					'已取消',
+					'广告“' + g.getRow(rowid).ADName + '”未下架 :)',
+					'error'
+				)
+			}
+		})
 	};
 
 	function vMntNewModal() {
