@@ -1,14 +1,25 @@
 define(function(require, exports, module) {
+	$.root_ = $('body');
+
 	module.exports = {
 		menus: [],
 		init: function(data) {
 			this.menus = data.map(function(menu) {
 				return menuGenerate(menu.href, menu.title);
 			});
-			
+
 			this.welcomeMsg();
 			this.menusGenerate();
 			require('menusAction');
+			var user = require('./user_data');
+			this.setProfile(user)
+			this._bindUI();
+		},
+		_bindUI: function() {
+			$.root_.on('click', 'a.login_out', function() {
+				// clean cache
+				window.location = 'app/login.html';
+			})
 		},
 		menusGenerate: function() {
 			var lis = this.menus.join('');
@@ -26,6 +37,11 @@ define(function(require, exports, module) {
 				toastr.success('当前时间：' + getNowTime(), '欢迎进入 方格子●广告发布系统');
 
 			}, 1300);
+		},
+		setProfile: function(user) {
+			$('ul#side-menu .profile_img').attr('src', user.img);
+			$('ul#side-menu .profile_name').text(user.name);
+			$('ul#side-menu .profile_role').text(user.role);
 		}
 	};
 

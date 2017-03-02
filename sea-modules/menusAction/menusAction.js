@@ -20,8 +20,8 @@ define(function(require, exports, module) {
 			} catch(c) {}
 		if($("#content") && a && a != "undefined") {
 			container = $("#content");
-			$("nav li.active").removeClass("active"),
-				$('nav li:has(a[href="#' + a + '"])').addClass("active");
+			$("nav li.active").removeClass("active");
+			$('nav li:has(a[href="#' + a + '"])').filter(':not(.nav-header)').addClass("active");
 			var d = $('nav a[href="' + a + '"]').attr("title");
 			document.title = d || document.title,
 				debugState && console.log("Page title: %c " + document.title),
