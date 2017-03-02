@@ -18,8 +18,8 @@ define(function(require, exports, module) {
 				var b = window.document.URL;
 				b && b.indexOf("#", 0) > 0 && b.indexOf("#", 0) < b.length + 1 && (a = b.substring(b.indexOf("#", 0) + 1))
 			} catch(c) {}
-		if(container = $("#content"),
-			a) {
+		if($("#content") && a && a != "undefined") {
+			container = $("#content");
 			$("nav li.active").removeClass("active"),
 				$('nav li:has(a[href="#' + a + '"])').addClass("active");
 			var d = $('nav a[href="' + a + '"]').attr("title");
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 				debugState && console.log("Page title: %c " + document.title),
 				loadURL(a + location.search, container)
 		} else {
-			var e = $('nav > ul > li:first-child > a[href!="#"]');
+			var e = $('nav > ul > li:nth-child(2) > a[href!="#"]');
 			window.location.hash = e.attr("href"),
 				e = null
 		}
