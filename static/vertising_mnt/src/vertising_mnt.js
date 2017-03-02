@@ -10,8 +10,6 @@ define(function(require, exports, module) {
 			this._bindUI();
 		},
 		_bindUI: function() {
-			var that = this;
-			
 			// bind .name_search_btn
 			$.root_.on("click", '.name_search_btn', function(e) {
 					f_search();
