@@ -31,7 +31,7 @@ define(function(require, exports, module) {
 			})
 			// bind .v_mnt_new_modal_btn
 			$.root_.on("click", '.new_modal_btn', function(e) {
-				vMntNewModal();
+				newModal();
 			})
 
 			// bind grid edit
@@ -151,11 +151,11 @@ define(function(require, exports, module) {
 		})
 	};
 
-	function vMntNewModal() {
+	function newModal() {
 		var modal = BootstrapDialog.show({
 			id: 'newModal',
 			title: '新建广告业务',
-			message: $('<div></div>').load('app/vertising_mnt_new_modal.html'),
+			message: $('<div></div>').load('app/vertising_mgr_new_modal.html'),
 			cssClass: 'modal inmodal fade',
 			buttons: [{
 				type: 'submit',

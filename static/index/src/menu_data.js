@@ -1,5 +1,5 @@
 define([{
-	'href': '#app/vertising_mnt.html',
+	'href': '#app/vertising_mgr.html',
 	'title': '广告业务管理'
 }, {
 	'href': '#app/test.html',
