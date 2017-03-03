@@ -1,13 +1,20 @@
 define(function(require, exports, module) {
 	$.root_ = $('div.ibox-content');
-	var manager, g, vMntData;
+	var manager, g, gridData;
 	module.exports = {
 
 		init: function(data) {
-			vMntData = data;
+			gridData = data;
 			f_initGrid();
-			manager.loadData($.extend(true, {}, vMntData));
+			manager.loadData($.extend(true, {}, gridData));
+			this._configText();
 			this._bindUI();
+		},
+		_configText() {
+			$('div h5.mgr_title').text('广告资源列表');
+			$('div button font.mgr_new_btn').text('新建广告业务');
+			$('div input.name_search').prop('placeholder', '输入广告名称');
+			$('div button.name_search_btn').text('搜索');
 		},
 		_bindUI: function() {
 			// bind .name_search_btn
@@ -23,11 +30,11 @@ define(function(require, exports, module) {
 				if ($('.name_search').val().length == 0) f_search();
 			})
 			// bind .v_mnt_new_modal_btn
-			$.root_.on("click", '.v_mnt_new_modal_btn', function(e) {
+			$.root_.on("click", '.new_modal_btn', function(e) {
 				vMntNewModal();
 			})
-			
-			// bind grid edit 
+
+			// bind grid edit
 			$.root_.on("click", '.row_btn_edit', function(e) {
 				beginEdit(e.currentTarget.tabIndex);
 			})
@@ -46,38 +53,12 @@ define(function(require, exports, module) {
 
 	// Helpers
 	/*
-	 * 生成广告业务Grid
+	 * 生成Grid
 	 */
 	function f_initGrid() {
-		g = manager = $("#vMntDiv").ligerGrid({
-			columns: [
-				{ display: '资源ID', name: 'ResourcesID', minWidth: 65, width: '10%', type: 'int' },
-				{ display: '广告名称', name: 'ADName', minWidth: 100, width: '15%' },
-				{ display: '业务厂商', name: 'BusinessFirm', minWidth: 120, width: '15%' },
-				{ display: '业务联系人', name: 'BusinessContact', editor: { type: 'text' }, minWidth: 60, width: '10%' },
-				{ display: '联系方式', name: 'phoneNumber', editor: { type: 'text' }, minWidth: 140, width: '10%' },
-				{ display: '添加人', name: 'Added', minWidth: 60, editor: { type: 'text' }, width: '10%' },
-				{ display: '添加时间', name: 'AddTime', tyep: 'date', format: 'yyyy-mm-dd HH:mm:ss', minWidth: 140, width: '15%' },
-				{
-					display: '操作',
-					isSort: false,
-					minWidth: 120,
-					width: '15%',
-					name: 'ApplyStatus',
-					tyep: 'int',
-					render: function(rowdata, rowindex, value) {
-						var h = "";
-						if(!rowdata._editing) {
-							h += "<button type='button' class='btn btn-outline btn-info btn-xs row-btn row_btn_edit'>修改</button> ";
-							h += "<button type='button' class='btn btn-outline btn-danger btn-xs row-btn row_btn_apply'>" + (value ? "下架" : "上架") + "</button> ";
-						} else {
-							h += "<button type='button' class='btn btn-outline btn-primary btn-xs row-btn row_btn_end'>提交</button> ";
-							h += "<button type='button' class='btn btn-outline btn-info btn-xs row-btn row_btn_cancel'>取消</button> ";
-						}
-						return h;
-					}
-				}
-			],
+		var c = require('./columns');
+		g = manager = $("div.listDiv").ligerGrid({
+			columns: c,
 			onSelectRow: function(rowdata, rowindex) {
 				$("#txtrowindex").val(rowindex);
 			},
@@ -92,7 +73,7 @@ define(function(require, exports, module) {
 	 * 搜索广告
 	 */
 	function f_search() {
-		g.options.data = $.extend(true, {}, vMntData);
+		g.options.data = $.extend(true, {}, gridData);
 		g.loadData(f_getWhere());
 	};
 
@@ -100,7 +81,7 @@ define(function(require, exports, module) {
 		if(!g) return null;
 		var clause = function(rowdata, rowindex) {
 			var key = $(".name_search").val();
-			return rowdata.ADName.indexOf(key) > -1;
+			return rowdata.Name.indexOf(key) > -1;
 		};
 		return clause;
 	};
@@ -123,7 +104,7 @@ define(function(require, exports, module) {
 	function applyRow(rowid) {
 		swal({
 			title: '确定上架?',
-			text: '上架后，广告“' + g.getRow(rowid).ADName + '”将可以进行投放',
+			text: '上架后，广告“' + g.getRow(rowid).Name + '”将可以进行投放',
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonText: '上架!',
@@ -131,14 +112,14 @@ define(function(require, exports, module) {
 		}).then(function() {
 			swal(
 				'上架成功!',
-				'广告“' + g.getRow(rowid).ADName + '”上架成功.',
+				'广告“' + g.getRow(rowid).Name + '”上架成功.',
 				'success'
 			)
 		}, function(dismiss) {
 			if(dismiss === 'cancel') {
 				swal(
 					'已取消',
-					'广告“' + g.getRow(rowid).ADName + '”未上架 :)',
+					'广告“' + g.getRow(rowid).Name + '”未上架 :)',
 					'error'
 				)
 			}
@@ -148,7 +129,7 @@ define(function(require, exports, module) {
 	function noApplyRow(rowid) {
 		swal({
 			title: '确定下架?',
-			text: '下架后，广告“' + g.getRow(rowid).ADName + '”将无法进行投放',
+			text: '下架后，广告“' + g.getRow(rowid).Name + '”将无法进行投放',
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonText: '下架!',
@@ -156,14 +137,14 @@ define(function(require, exports, module) {
 		}).then(function() {
 			swal(
 				'下架成功!',
-				'广告“' + g.getRow(rowid).ADName + '”下架成功.',
+				'广告“' + g.getRow(rowid).Name + '”下架成功.',
 				'success'
 			)
 		}, function(dismiss) {
 			if(dismiss === 'cancel') {
 				swal(
 					'已取消',
-					'广告“' + g.getRow(rowid).ADName + '”未下架 :)',
+					'广告“' + g.getRow(rowid).Name + '”未下架 :)',
 					'error'
 				)
 			}
@@ -172,7 +153,7 @@ define(function(require, exports, module) {
 
 	function vMntNewModal() {
 		var modal = BootstrapDialog.show({
-			id: 'vMntNewModal',
+			id: 'newModal',
 			title: '新建广告业务',
 			message: $('<div></div>').load('app/vertising_mnt_new_modal.html'),
 			cssClass: 'modal inmodal fade',
@@ -183,10 +164,10 @@ define(function(require, exports, module) {
 				cssClass: 'btn btn-primary',
 				autospin: false,
 				action: function(dialogRef) {
-					$('#vMntNewModalForm').submit();
+					$('#newModalForm').submit();
 				}
 			}, {
-				id: 'vMntNewModalClose',
+				id: 'newModalClose',
 				label: '取消',
 				cssClass: 'btn btn-white',
 				autospin: false,
@@ -195,16 +176,16 @@ define(function(require, exports, module) {
 				}
 			}],
 			onshown: function(dialogRef) {
-				vMntNewModalValidation();
+				newModalValidation();
 			}
 		});
 	};
 
 	/*
-	 * 广告业务添加验证
+	 * 添加验证
 	 */
-	function vMntNewModalValidation() {
-		$('#vMntNewModalForm').formValidation({
+	function newModalValidation() {
+		$('#newModalForm').formValidation({
 				autoFocus: true,
 				locale: 'zh_CN',
 				message: '该值无效，请重新输入',
@@ -217,7 +198,7 @@ define(function(require, exports, module) {
 					validating: 'glyphicon glyphicon-refresh'
 				},
 				fields: {
-					ADName: {
+					Name: {
 						validators: {
 							notEmpty: {}
 						}
@@ -232,7 +213,7 @@ define(function(require, exports, module) {
 							notEmpty: {}
 						}
 					},
-					phoneNumber: {
+					PhoneNumber: {
 						validators: {
 							notEmpty: {},
 							digits: {},
@@ -270,7 +251,7 @@ define(function(require, exports, module) {
 						msg = "广告业务添加失败！";
 						toastr.error(msg);
 					};
-					$('#vMntNewModalClose').click();
+					$('#newModalClose').click();
 				}, 'json');
 			});
 	};
