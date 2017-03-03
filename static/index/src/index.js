@@ -5,12 +5,16 @@ define(function(require, exports, module) {
 		menus: [],
 		init: function(data) {
 			this.menus = data.map(function(menu) {
-				return menuGenerate(menu.href, menu.title);
+				return menuGenerate(menu);
 			});
 
 			this.welcomeMsg();
 			this.menusGenerate();
 			require('menusAction');
+
+			// MetsiMenu
+			$('#side-menu').metisMenu();
+
 			var user = require('./user_data');
 			this.setProfile(user)
 			this._bindUI();
@@ -49,8 +53,23 @@ define(function(require, exports, module) {
 	/*
 	 * 生成菜单
 	 */
-	function menuGenerate(href, title) {
-		return "<li><a href=" + href + " title=" + title + "><i class='fa fa-th-large'></i> <span class='nav-label'>" + title + "</span></a></li>";
+	function menuGenerate(menu) {
+		var m = "<li>";
+		m += "<a href=" + menu.href + " title=" + menu.title +
+			"><i class='" + menu.icon + "'></i> <span class='nav-label'>" + menu.title +
+			"</span>";
+
+		if (menu.childrens != undefined) {
+			m += "<span class='fa arrow'></span></a><ul class='nav nav-second-level collapse'>";
+			menu.childrens.map(function(c) {
+				m += "<li><a href=" + c.href + " title='" + c.title + "'>" + c.title + "</a></li>";
+			});
+			m += "</ul></li>";
+		} else {
+			m += "</a></li>";
+		}
+
+		return m;
 	}
 	/**
 	 * 获取当前时间

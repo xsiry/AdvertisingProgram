@@ -7,18 +7,75 @@ define(function(require, exports, module) {
 
 	$.navAsAjax = true;
 	var debugState = false,
+		menu_speed = 235,
+		menu_accordion = true,
 		enableJarvisWidgets = true,
 		ignore_key_elms = ["#wrapper, .pace"],
 		bread_crumb = $("#ribbon ol.breadcrumb")
 
+
+	function leftNav() {
+		topmenu || $("nav ul").jarvismenu({
+			"accordion": menu_accordion || !0,
+			"speed": menu_speed || !0,
+			"closedSign": '<em class="fa fa-plus-square-o"></em>',
+			"openedSign": '<em class="fa fa-minus-square-o"></em>'
+		})
+	}
+
+	$.fn.extend({
+		"jarvismenu": function(a) {
+			var b = {
+					"accordion": "true",
+					"speed": 200,
+					"closedSign": "[+]",
+					"openedSign": "[-]"
+				},
+				c = $.extend(b, a),
+				d = $(this);
+			d.find("li").each(function() {
+					0 !== $(this).find("ul").size() && ($(this).find("a:first").append("<b class='collapse-sign'>" + c.closedSign + "</b>"),
+						"#" == $(this).find("a:first").attr("href") && $(this).find("a:first").click(function() {
+							return !1
+						}))
+				}),
+				d.find("li.active").each(function() {
+					$(this).parents("ul").slideDown(c.speed),
+						$(this).parents("ul").parent("li").find("b:first").html(c.openedSign),
+						$(this).parents("ul").parent("li").addClass("open")
+				}),
+				d.find("li a").click(function() {
+					0 !== $(this).parent().find("ul").size() && (c.accordion && ($(this).parent().find("ul").is(":visible") || (parents = $(this).parent().parents("ul"),
+							visible = d.find("ul:visible"),
+							visible.each(function(a) {
+								var b = !0;
+								parents.each(function(c) {
+										return parents[c] == visible[a] ? (b = !1, !1) : void 0
+									}),
+									b && $(this).parent().find("ul") != visible[a] && $(visible[a]).slideUp(c.speed, function() {
+										$(this).parent("li").find("b:first").html(c.closedSign),
+											$(this).parent("li").removeClass("open")
+									})
+							}))),
+						$(this).parent().find("ul:first").is(":visible") && !$(this).parent().find("ul:first").hasClass("active") ? $(this).parent().find("ul:first").slideUp(c.speed, function() {
+							$(this).parent("li").removeClass("open"),
+								$(this).parent("li").find("b:first").delay(c.speed).html(c.closedSign)
+						}) : $(this).parent().find("ul:first").slideDown(c.speed, function() {
+							$(this).parent("li").addClass("open"),
+								$(this).parent("li").find("b:first").delay(c.speed).html(c.openedSign)
+						}))
+				})
+		}
+	})
+
 	function checkURL() {
 		var a = location.href.split("#").splice(1).join("#");
-		if(!a)
+		if (!a)
 			try {
 				var b = window.document.URL;
 				b && b.indexOf("#", 0) > 0 && b.indexOf("#", 0) < b.length + 1 && (a = b.substring(b.indexOf("#", 0) + 1))
-			} catch(c) {}
-		if($("#content") && a && a != "undefined") {
+			} catch (c) {}
+		if ($("#content") && a && a != "undefined") {
 			container = $("#content");
 			$("nav li.active").removeClass("active");
 			$('nav li:has(a[href="#' + a + '"])').filter(':not(.nav-header)').addClass("active");
