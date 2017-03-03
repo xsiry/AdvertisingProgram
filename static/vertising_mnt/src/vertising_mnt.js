@@ -70,7 +70,7 @@ define(function(require, exports, module) {
 	};
 
 	/*
-	 * 搜索广告
+	 * 搜索
 	 */
 	function f_search() {
 		g.options.data = $.extend(true, {}, gridData);
