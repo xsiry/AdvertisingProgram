@@ -205,25 +205,6 @@ define(function(require, exports, module) {
             validators: {
               notEmpty: {}
             }
-          },
-          BusinessFirm: {
-            validators: {
-              notEmpty: {}
-            }
-          },
-          BusinessContact: {
-            validators: {
-              notEmpty: {}
-            }
-          },
-          phoneNumber: {
-            validators: {
-              notEmpty: {},
-              digits: {},
-              phone: {
-                country: 'CN'
-              }
-            }
           }
         }
       })
