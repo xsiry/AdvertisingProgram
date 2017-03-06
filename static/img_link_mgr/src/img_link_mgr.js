@@ -180,6 +180,7 @@ define(function(require, exports, module) {
       }],
       onshown: function(dialogRef) {
         newModalValidation();
+        generateCombo();
       }
     });
   };
@@ -238,5 +239,41 @@ define(function(require, exports, module) {
           $('#newModalClose').click();
         }, 'json');
       });
+  };
+
+  /*
+   * 游戏编号combo
+   */
+  function generateCombo() {
+    var condition = { fields: [{ name: 'GameName', label: '游戏名称', width: 90, type: 'text' }] };
+    $("#gameNumberCombo").ligerComboBox({
+      width: 253,
+      slide: false,
+      selectBoxWidth: 360,
+      selectBoxHeight: 240,
+      valueField: 'Id',
+      textField: 'Id',
+      grid: getGridOptions(false),
+      condition: condition
+    });
+  };
+
+  /*
+   * 应用分类-游戏编号
+   */
+  function getGridOptions(checkbox) {
+    var options = {
+      columns: [
+        { display: '游戏Id', name: 'Id', align: 'left', width: 100, minWidth: 50 },
+        { display: '游戏名', name: 'GameName', minWidth: 120, width: 100 },
+        { display: '游戏分类', name: 'GameCategory', minWidth: 100, width: 100 }
+      ],
+      switchPageSizeApplyComboBox: false,
+      data: $.extend({}, {}),
+      //url : 'xxx',
+      pageSize: 10,
+      checkbox: checkbox
+    };
+    return options;
   };
 })
