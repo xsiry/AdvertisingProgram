@@ -4,7 +4,7 @@ define(function(require) {
   var module = require('./icon_mgr');
   module.init(data);
 
-    // 清理 缓存
+  // 清理 缓存
   var url = require.resolve('./main')
   delete seajs.cache[url]
   delete seajs.data.fetchedList[url]
