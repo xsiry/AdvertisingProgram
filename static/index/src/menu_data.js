@@ -13,7 +13,7 @@ define([{
 }, {
   'icon': 'fa fa-cogs',
   'title': '插件广告管理',
-  'href': '#app/2.html'
+  'href': '#app/widget_mgr.html'
 }, {
   'icon': 'fa fa-sitemap',
   'title': '菜单分类广告',
