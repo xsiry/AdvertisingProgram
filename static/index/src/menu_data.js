@@ -20,13 +20,13 @@ define([{
   'href': '#',
   'childrens': [{
     'title': '一级分类',
-    'href': '#app/4.html'
+    'href': '#app/level_class_one.html'
   }, {
     'title': '二级分类',
-    'href': '#app/5.html'
+    'href': '#app/level_class_two.html'
   }, {
     'title': '三级分类',
-    'href': '#app/6.html'
+    'href': '#app/level_class_three.html'
   }]
 }, {
   'icon': 'fa fa-book',
@@ -48,5 +48,38 @@ define([{
 }, {
   'icon': 'fa fa-tasks',
   'title': '数据统计',
-  'href': '#app/12.html'
+  'href': '#',
+  'childrens': [{
+    'title': '按模板统计',
+    'href': '#app/statistics_template.html'
+  }, {
+    'title': '按广告名称统计',
+    'href': '#app/statistics_ad_name.html'
+  }, {
+    'title': '按广告位统计',
+    'href': '#app/statistics_advertising.html'
+  }, {
+    'title': '按网吧统计',
+    'href': '#app/statistics_internet_bar.html'
+  }, {
+    'title': '按广告业务统计',
+    'href': '#app/statistics_business.html'
+  }, {
+    'title': '按广告周期统计',
+    'href': '#app/statistics_cycle.html'
+  }, {
+    'title': '插件统计',
+    'href': '#app/statistics_widget.html'
+  }]
+}, {
+  'icon': 'fa fa-sitemap',
+  'title': '高级管理',
+  'href': '#',
+  'childrens': [{
+    'title': '用户列表管理',
+    'href': '#app/one_level_class.html'
+  }, {
+    'title': '权限管理',
+    'href': '#app/two_level_class.html'
+  }]
 }]);
