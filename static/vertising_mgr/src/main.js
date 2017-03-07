@@ -1,7 +1,7 @@
 define(function(require) {
 
-  var data = require('./vertising_mgr_data');
-  var module = require('./vertising_mgr');
+  var data = require('./data');
+  var module = require('./module');
   module.init(data);
 
   // 清理 缓存
@@ -9,7 +9,7 @@ define(function(require) {
   delete seajs.cache[url]
   delete seajs.data.fetchedList[url]
 
-  var url = require.resolve('./vertising_mgr')
+  var url = require.resolve('./module')
   delete seajs.cache[url]
   delete seajs.data.fetchedList[url]
 });

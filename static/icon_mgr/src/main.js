@@ -1,7 +1,7 @@
 define(function(require) {
 
-  var data = require('./icon_mgr_data');
-  var module = require('./icon_mgr');
+  var data = require('./data');
+  var module = require('./module');
   module.init(data);
 
   // 清理 缓存

@@ -1,4 +1,4 @@
 define(function(require) {
-  var module = require('./login');
+  var module = require('./module');
   module.init();
 });
