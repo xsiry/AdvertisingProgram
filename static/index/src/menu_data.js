@@ -57,7 +57,7 @@ define([{
     'href': '#app/statistics_ad_name.html'
   }, {
     'title': '按广告位统计',
-    'href': '#app/statistics_advertising.html'
+    'href': '#app/statistics_ad_space.html'
   }, {
     'title': '按网吧统计',
     'href': '#app/statistics_internet_bar.html'
