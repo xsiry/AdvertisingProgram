@@ -9,11 +9,7 @@ define([{
 }, {
   'icon': 'fa fa-picture-o',
   'title': '图标广告管理',
-  'href': '#',
-  'childrens': [{
-    'title': '动画特效管理',
-    'href': '#app/1.html'
-  }]
+  'href': '#app/icon_mgr.html'
 }, {
   'icon': 'fa fa-cogs',
   'title': '插件广告管理',
