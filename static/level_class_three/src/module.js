@@ -47,10 +47,6 @@ define(function(require, exports, module) {
         var index = $(e.currentTarget).attr('name');
         endEdit(index);
       })
-      $.root_.on("click", '.row_btn_apply', function(e) {
-        var index = $(e.currentTarget).attr('name');
-        e.currentTarget.textContent == "上架" ? applyRow(index) : noApplyRow(index);
-      })
     }
   };
 
@@ -104,61 +100,11 @@ define(function(require, exports, module) {
     manager.endEdit(rowid);
   };
 
-  function applyRow(rowid) {
-    swal({
-      title: '确定上架?',
-      text: '上架后，广告“' + g.getRow(rowid).Name + '”将可以进行投放',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: '上架!',
-      cancelButtonText: '取消'
-    }).then(function() {
-      swal(
-        '上架成功!',
-        '广告“' + g.getRow(rowid).Name + '”上架成功.',
-        'success'
-      )
-    }, function(dismiss) {
-      if (dismiss === 'cancel') {
-        swal(
-          '已取消',
-          '广告“' + g.getRow(rowid).Name + '”未上架 :)',
-          'error'
-        )
-      }
-    })
-  };
-
-  function noApplyRow(rowid) {
-    swal({
-      title: '确定下架?',
-      text: '下架后，广告“' + g.getRow(rowid).Name + '”将无法进行投放',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: '下架!',
-      cancelButtonText: '取消'
-    }).then(function() {
-      swal(
-        '下架成功!',
-        '广告“' + g.getRow(rowid).Name + '”下架成功.',
-        'success'
-      )
-    }, function(dismiss) {
-      if (dismiss === 'cancel') {
-        swal(
-          '已取消',
-          '广告“' + g.getRow(rowid).Name + '”未下架 :)',
-          'error'
-        )
-      }
-    })
-  };
-
   function newModal() {
     var modal = BootstrapDialog.show({
       id: 'newModal',
-      title: '新建banner条链接',
-      message: $('<div></div>').load('app/img_link_mgr_modal.html'),
+      title: '新建三级分类',
+      message: $('<div></div>').load('app/level_class_three_modal.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',
@@ -180,21 +126,7 @@ define(function(require, exports, module) {
       }],
       onshown: function(dialogRef) {
         newModalValidation();
-        generateCombo();
         initCombo();
-        $('ul.form_tabs > li > a').on("click", function(e) {
-          var title = $(e.currentTarget).text();
-          if (title == "升窗") {
-            $('div.upload_pic input').attr('disabled', 'disabled')
-          } else {
-            $('div.upload_pic input').removeAttr("disabled");
-          }
-          dialogRef.setTitle("新建" + title + "链接");
-        });
-
-        $('.fileToUpload').on('change', function() {
-          fileSelected();
-        });
       }
     });
   };
@@ -254,42 +186,6 @@ define(function(require, exports, module) {
         }, 'json');
       });
   };
-
-  /*
-   * 游戏编号combo
-   */
-  function generateCombo() {
-    var condition = { fields: [{ name: 'GameName', label: '游戏名称', width: 90, type: 'text' }] };
-    $("#gameNumberCombo").ligerComboBox({
-      width: 159,
-      slide: false,
-      selectBoxWidth: 360,
-      selectBoxHeight: 240,
-      valueField: 'Id',
-      textField: 'Id',
-      grid: getGridOptions(false),
-      condition: condition
-    });
-  };
-
-  /*
-   * 应用分类-游戏编号
-   */
-  function getGridOptions(checkbox) {
-    var options = {
-      columns: [
-        { display: '游戏Id', name: 'Id', align: 'left', width: 100, minWidth: 50 },
-        { display: '游戏名', name: 'GameName', minWidth: 120, width: 100 },
-        { display: '游戏分类', name: 'GameCategory', minWidth: 100, width: 100 }
-      ],
-      switchPageSizeApplyComboBox: false,
-      data: $.extend({}, {}),
-      //url : 'xxx',
-      pageSize: 10,
-      checkbox: checkbox
-    };
-    return options;
-  };
   /*
    * 初始化Combo
    */
@@ -313,57 +209,4 @@ define(function(require, exports, module) {
       $(selector).chosen(config[selector]);
     }
   };
-  /*
-   * 图片上传
-   */
-  function fileSelected() {
-    var file = $('.fileToUpload').files[0];
-    if (file) {
-      var fileSize = 0;
-      if (file.size > 1024 * 1024)
-        fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
-      else
-        fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
-
-      $('.fileName').innerHTML = '名称: ' + file.name;
-      $('.fileSize').innerHTML = '大小: ' + fileSize;
-      $('.fileType').innerHTML = '类型: ' + file.type;
-    }
-  }
-
-  function uploadFile() {
-    var xhr = new XMLHttpRequest();
-    var fd = document.getElementById('newModalForm').getFormData();
-
-    /* event listners */
-    xhr.upload.addEventListener("progress", uploadProgress, false);
-    xhr.addEventListener("load", uploadComplete, false);
-    xhr.addEventListener("error", uploadFailed, false);
-    xhr.addEventListener("abort", uploadCanceled, false);
-    /* Be sure to change the url below to the url of your upload server side script */
-    xhr.open("POST", "upload.php");
-    xhr.send(fd);
-  }
-
-  function uploadProgress(evt) {
-    if (evt.lengthComputable) {
-      var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-      document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
-    } else {
-      document.getElementById('progressNumber').innerHTML = 'unable to compute';
-    }
-  }
-
-  function uploadComplete(evt) {
-    /* This event is raised when the server send back a response */
-    alert(evt.target.responseText);
-  }
-
-  function uploadFailed(evt) {
-    alert("There was an error attempting to upload the file.");
-  }
-
-  function uploadCanceled(evt) {
-    alert("The upload has been canceled by the user or the browser dropped the connection.");
-  }
 })

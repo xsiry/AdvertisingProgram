@@ -1,0 +1,58 @@
+<link rel="stylesheet" type="text/css" href="static/img_link_mgr/style.css">
+<form class="form-horizontal" style="margin-top: 20px" id="newModalForm" role="form" enctype="multipart/form-data">
+  <div class="form-group">
+    <label class="col-sm-3 control-label">所属二级分类</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <select data-placeholder="请选择游戏类别.." name="AppCategory" class="chosen-select" multiple style="width:396px;" tabindex="4">
+          <option value=""></option>
+          <option value="热门游戏">热门游戏</option>
+          <option value="网络游戏">网络游戏</option>
+          <option value="单机游戏">单机游戏</option>
+          <option value="对战平台">对战平台</option>
+          <option value="聊天工具">聊天工具</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">分类名称</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name="ShowName">
+      <span class="help-block m-b-none">（用户端展现的广告名称）</span>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">广告名称</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <select data-placeholder="请选择.." class="chosen-select" name="Name" style="width:396px;" tabindex="2">
+          <option value="游戏">游戏</option>
+          <option value="手游">手游</option>
+        </select>
+      </div>
+      <span class="help-block m-b-none">（用于业务关系识别，后台选择）</span>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">指向</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <select data-placeholder="请选择.." class="chosen-select" name="Name" style="width:396px;" tabindex="2">
+          <option value="菜单">菜单</option>
+          <option value="链接">链接</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">链接</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name="Link">
+    </div>
+  </div>
+</form>
