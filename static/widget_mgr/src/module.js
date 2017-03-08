@@ -157,8 +157,8 @@ define(function(require, exports, module) {
   function newModal() {
     var modal = BootstrapDialog.show({
       id: 'newModal',
-      title: '新建banner条链接',
-      message: $('<div></div>').load('app/img_link_mgr_modal.html'),
+      title: '新建插件广告',
+      message: $('<div></div>').load('app/widget_mgr_modal.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',
@@ -182,15 +182,6 @@ define(function(require, exports, module) {
         newModalValidation();
         generateCombo();
         initCombo();
-        $('ul.form_tabs > li > a').on("click", function(e) {
-          var title = $(e.currentTarget).text();
-          if (title == "升窗") {
-            $('div.upload_pic input').attr('disabled', 'disabled')
-          } else {
-            $('div.upload_pic input').removeAttr("disabled");
-          }
-          dialogRef.setTitle("新建" + title + "链接");
-        });
 
         $('.fileToUpload').on('change', function() {
           fileSelected();
