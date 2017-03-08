@@ -30,17 +30,14 @@ define([{
   }]
 }, {
   'icon': 'fa fa-book',
-  'title': '广告模板管理',
+  'title': '广告模板',
   'href': '#',
   'childrens': [{
+    'title': '广告模板管理',
+    'href': '#app/templates_mgr.html'
+  }, {
     'title': '网吧列表管理',
     'href': '#app/8.html'
-  }, {
-    'title': '配置广告模板',
-    'href': '#app/9.html'
-  }, {
-    'title': '广告发布',
-    'href': '#app/10.html'
   }, {
     'title': '发布历史',
     'href': '#app/11.html'
