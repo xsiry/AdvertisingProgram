@@ -180,8 +180,6 @@ define(function(require, exports, module) {
       }],
       onshown: function(dialogRef) {
         newModalValidation();
-        generateCombo();
-        initCombo();
 
         $('.fileToUpload').on('change', function() {
           fileSelected();
@@ -246,64 +244,6 @@ define(function(require, exports, module) {
       });
   };
 
-  /*
-   * 游戏编号combo
-   */
-  function generateCombo() {
-    var condition = { fields: [{ name: 'GameName', label: '游戏名称', width: 90, type: 'text' }] };
-    $("#gameNumberCombo").ligerComboBox({
-      width: 159,
-      slide: false,
-      selectBoxWidth: 360,
-      selectBoxHeight: 240,
-      valueField: 'Id',
-      textField: 'Id',
-      grid: getGridOptions(false),
-      condition: condition
-    });
-  };
-
-  /*
-   * 应用分类-游戏编号
-   */
-  function getGridOptions(checkbox) {
-    var options = {
-      columns: [
-        { display: '游戏Id', name: 'Id', align: 'left', width: 100, minWidth: 50 },
-        { display: '游戏名', name: 'GameName', minWidth: 120, width: 100 },
-        { display: '游戏分类', name: 'GameCategory', minWidth: 100, width: 100 }
-      ],
-      switchPageSizeApplyComboBox: false,
-      data: $.extend({}, {}),
-      //url : 'xxx',
-      pageSize: 10,
-      checkbox: checkbox
-    };
-    return options;
-  };
-  /*
-   * 初始化Combo
-   */
-  function initCombo() {
-    var config = {
-      '.chosen-select': {},
-      '.chosen-select-deselect': {
-        allow_single_deselect: true
-      },
-      '.chosen-select-no-single': {
-        disable_search_threshold: 10
-      },
-      '.chosen-select-no-results': {
-        no_results_text: 'Oops, nothing found!'
-      },
-      '.chosen-select-width': {
-        width: "95%"
-      }
-    }
-    for (var selector in config) {
-      $(selector).chosen(config[selector]);
-    }
-  };
   /*
    * 图片上传
    */
