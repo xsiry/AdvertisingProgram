@@ -9,7 +9,7 @@ define(function(require) {
   delete seajs.cache[url]
   delete seajs.data.fetchedList[url]
 
-  var url = require.resolve('./icon_mgr')
+  var url = require.resolve('./icon_mgmt')
   delete seajs.cache[url]
   delete seajs.data.fetchedList[url]
 });

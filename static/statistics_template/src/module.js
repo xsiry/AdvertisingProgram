@@ -12,7 +12,7 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgr_title').text('模板统计列表');
+      $('div h5.mgmt_title').text('模板统计列表');
       $('div button.name_search_btn').text('查询');
     },
     _searchTools() {

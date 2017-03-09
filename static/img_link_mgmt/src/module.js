@@ -11,8 +11,8 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgr_title').text('图片链接列表');
-      $('div button font.mgr_new_btn').text('新建图片链接');
+      $('div h5.mgmt_title').text('图片链接列表');
+      $('div button font.mgmt_new_btn').text('新建图片链接');
       $('div input.name_search').prop('placeholder', '输入广告名称');
       $('div button.name_search_btn').text('搜索');
     },
@@ -158,7 +158,7 @@ define(function(require, exports, module) {
     var modal = BootstrapDialog.show({
       id: 'newModal',
       title: '新建banner条链接',
-      message: $('<div></div>').load('app/img_link_mgr_modal.html'),
+      message: $('<div></div>').load('app/img_link_mgmt_modal.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',

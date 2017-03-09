@@ -11,8 +11,8 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgr_title').text('广告模板列表');
-      $('div button font.mgr_new_btn').text('新建广告模板');
+      $('div h5.mgmt_title').text('广告模板列表');
+      $('div button font.mgmt_new_btn').text('新建广告模板');
       $('div input.name_search').prop('placeholder', '输入模板名称');
       $('div button.name_search_btn').text('搜索');
     },
@@ -100,7 +100,7 @@ define(function(require, exports, module) {
   function newModal() {
     modal = BootstrapDialog.show({
       title: '新建广告模板',
-      message: $('<div></div>').load('app/templates_mgr_modal_new.html'),
+      message: $('<div></div>').load('app/templates_mgmt_modal_new.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',
@@ -131,7 +131,7 @@ define(function(require, exports, module) {
   function configModal(rowid) {
     modal = BootstrapDialog.show({
       title: '配置模板',
-      message: $('<div></div>').load('app/templates_mgr_modal_config.html'),
+      message: $('<div></div>').load('app/templates_mgmt_modal_config.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',
@@ -163,7 +163,7 @@ define(function(require, exports, module) {
   function editModal(rowid) {
     modal = BootstrapDialog.show({
       title: '修改广告模板',
-      message: $('<div></div>').load('app/templates_mgr_modal_new.html'),
+      message: $('<div></div>').load('app/templates_mgmt_modal_new.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',
@@ -194,7 +194,7 @@ define(function(require, exports, module) {
   function publishModal(rowid) {
     modal = BootstrapDialog.show({
       title: '发布广告模板',
-      message: $('<div></div>').load('app/templates_mgr_modal_publish.html'),
+      message: $('<div></div>').load('app/templates_mgmt_modal_publish.html'),
       cssClass: 'modal inmodal fade',
       buttons: [{
         type: 'submit',

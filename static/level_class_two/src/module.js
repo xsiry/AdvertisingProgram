@@ -11,8 +11,8 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgr_title').text('二级分类列表');
-      $('div button font.mgr_new_btn').text('新建二级分类');
+      $('div h5.mgmt_title').text('二级分类列表');
+      $('div button font.mgmt_new_btn').text('新建二级分类');
       $('div input.name_search').prop('placeholder', '输入广告名称');
       $('div button.name_search_btn').text('搜索');
     },

@@ -11,7 +11,7 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgr_title').text('发布历史列表');
+      $('div h5.mgmt_title').text('发布历史列表');
       $('div input.name_search').prop('placeholder', '输入配置名称关键字..');
       $('div button.name_search_btn').text('搜索');
     },

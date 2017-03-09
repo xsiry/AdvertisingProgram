@@ -1,15 +1,16 @@
+<link rel="stylesheet" type="text/css" href="static/templates_mgmt/style.css">
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5 class="mgr_title"></h5>
+          <h5 class="mgmt_title"></h5>
         </div>
         <div class="ibox-content">
           <div class="row">
             <div class="col-sm-5 m-b-xs">
               <button class="btn btn-primary new_modal_btn" type="button"><i class="fa fa-paste"></i>
-                <font class="mgr_new_btn"></font>
+                <font class="mgmt_new_btn"></font>
               </button>
             </div>
             <div class="col-sm-3 col-md-offset-4">
@@ -36,8 +37,7 @@ $(document).ready(function() {
     base: "./sea-modules/",
     alias: {}
   });
-
   // 加载入口模块
-  seajs.use("./static/widget_mgr/src/main")
+  seajs.use("./static/templates_mgmt/src/main")
 });
 </script>

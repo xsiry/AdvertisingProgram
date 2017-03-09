@@ -12,8 +12,8 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgr_title').text('网吧列表');
-      $('div button font.mgr_new_btn').text('新建图标广告');
+      $('div h5.mgmt_title').text('网吧列表');
+      $('div button font.mgmt_new_btn').text('新建图标广告');
       $('div input.name_search').prop('placeholder', '输入网吧名称关键字..');
       $('div button.name_search_btn').text('搜索');
     },

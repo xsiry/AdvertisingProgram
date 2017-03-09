@@ -1,19 +1,19 @@
 define([{
   'icon': 'fa fa-th-large',
   'title': '广告业务管理',
-  'href': '#app/vertising_mgr.html'
+  'href': '#app/vertising_mgmt.html'
 }, {
   'icon': 'fa fa-globe',
   'title': '图片链接管理',
-  'href': '#app/img_link_mgr.html'
+  'href': '#app/img_link_mgmt.html'
 }, {
   'icon': 'fa fa-picture-o',
   'title': '图标广告管理',
-  'href': '#app/icon_mgr.html'
+  'href': '#app/icon_mgmt.html'
 }, {
   'icon': 'fa fa-cogs',
   'title': '插件广告管理',
-  'href': '#app/widget_mgr.html'
+  'href': '#app/widget_mgmt.html'
 }, {
   'icon': 'fa fa-sitemap',
   'title': '菜单分类广告',
@@ -34,10 +34,10 @@ define([{
   'href': '#',
   'childrens': [{
     'title': '广告模板管理',
-    'href': '#app/templates_mgr.html'
+    'href': '#app/templates_mgmt.html'
   }, {
     'title': '网吧列表管理',
-    'href': '#app/internet_bars_mgr.html'
+    'href': '#app/internet_bars_mgmt.html'
   }, {
     'title': '发布历史',
     'href': '#app/publish_history.html'
