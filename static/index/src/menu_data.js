@@ -37,10 +37,10 @@ define([{
     'href': '#app/templates_mgr.html'
   }, {
     'title': '网吧列表管理',
-    'href': '#app/8.html'
+    'href': '#app/internet_bars_mgr.html'
   }, {
     'title': '发布历史',
-    'href': '#app/11.html'
+    'href': '#app/publish_history.html'
   }]
 }, {
   'icon': 'fa fa-tasks',
