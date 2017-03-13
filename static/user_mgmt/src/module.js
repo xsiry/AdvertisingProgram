@@ -1,20 +1,17 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
-  var manager, g, gridData, managerRole, gRole, roleGridData;
+  var manager, g, gridData;
   module.exports = {
 
-    init: function(data,roleData) {
+    init: function(data) {
       gridData = data ;
-      roleGridData = roleData;
       f_initGrid();
-      f_role_initGrid();
       manager.loadData($.extend(true, {}, gridData));
       this._configText();
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgmt_title').text('权限管理列表');
-      $('div h5.mgmt_roles_title').text('角色管理列表');
+      $('div h5.mgmt_title').text('图标广告列表');
       $('div button font.mgmt_new_btn').text('新建图标广告');
       $('div input.name_search').prop('placeholder', '输入广告名称');
       $('div button.name_search_btn').text('搜索');
@@ -71,26 +68,9 @@ define(function(require, exports, module) {
       onSelectRow: function(rowdata, rowindex) {
         $("#txtrowindex").val(rowindex);
       },
+      alternatingRow: false,
       tree: { columnId: 'menus' },
-      alternatingRow: false,
-      clickToEdit: false,
-      width: '100%',
-      height: '91%'
-    });
-  };
-
-
-  function f_role_initGrid() {
-    var c = require('./columns_role');
-    //TreeDeptData.Rows[0].isextend = false;
-
-    gRole = managerRole = $("div.listRolesDiv").ligerGrid({
-      checkbox: true,
-      columns: c,
-      onSelectRow: function(rowdata, rowindex) {
-        $("#txtrowindex").val(rowindex);
-      },
-      alternatingRow: false,
+      enabledEdit: true,
       clickToEdit: false,
       width: '100%',
       height: '91%'
