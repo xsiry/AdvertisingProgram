@@ -1,0 +1,24 @@
+<input id="file-3" type="file" multiple>
+<script>
+var options = {
+		language: "zh",
+		showClose: false,
+    showCaption: false,
+    dropZoneEnabled: false,
+    fileActionSettings: {
+    	showUpload: false
+    },
+    uploadUrl: $('.img_upload').data('url'), // you must set a valid URL here else you will get an error
+    overwriteInitial: true,
+    minFileCount: $('.img_upload').data('mincount') || 1,
+    maxFileCount: $('.img_upload').data('maxcount') || 20,
+    allowedFileTypes: ($('.img_upload').data('types') && $('.img_upload').data('types') != "") ? $('.img_upload').data('types').split(',') : [],
+    slugCallback: function (filename) {
+        return filename.replace('(', '_').replace(']', '_');
+    }
+}
+
+$("#file-3").fileinput(options).on('fileuploaded', function(e, params) {
+    console.log('File uploaded params', params);
+});
+</script>
