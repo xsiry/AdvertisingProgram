@@ -54,10 +54,10 @@ define(function(require, exports, module) {
         var bv = $form.data('formValidation');
 
         // Use Ajax to submit form data
-        $.get('login.json', $form.serialize(), function(result) {
-          if (result.status == "success") {
+        $.get('system/userLogin', $form.serialize(), function(result) {
+          if (result.success) {
             saveUserInfo();
-            location.href = "../index.html";
+            location.href = "index.html";
             $.gritter.add({
               title: '登录成功',
               sticky: false,
@@ -69,7 +69,7 @@ define(function(require, exports, module) {
           } else {
             $.gritter.add({
               title: '登录失败',
-              text: data.msg,
+              text: result.msg,
               sticky: false,
               time: 1000,
               speed: 500,

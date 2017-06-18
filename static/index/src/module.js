@@ -38,7 +38,7 @@ define(function(require, exports, module) {
           showMethod: 'slideDown',
           timeOut: 4000
         };
-        toastr.success('当前时间：' + getNowTime(), '欢迎进入 方格子●广告发布系统');
+        toastr.success('当前时间：' + getNowTime(), '欢迎进入 管理系统');
 
       }, 1300);
     },
