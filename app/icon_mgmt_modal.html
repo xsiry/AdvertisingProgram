@@ -1,0 +1,130 @@
+<link rel="stylesheet" type="text/css" href="static/img_link_mgmt/style.css">
+<form class="form-horizontal" style="margin-top: 20px" id="newModalForm" role="form" enctype="multipart/form-data">
+  <div class="form-group">
+    <label class="col-sm-3 control-label">广告名称</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <select data-placeholder="请选择.." class="chosen-select" name="Name" style="width:396px;" tabindex="2">
+          <option value></option>
+          <option value="扑鱼达人">扑鱼达人</option>
+          <option value="魔法王座">魔法王座</option>
+        </select>
+      </div>
+      <span class="help-block m-b-none">（用于业务关系识别，后台选择）</span>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">图标名称</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name="ShowName">
+      <span class="help-block m-b-none">（用户端展现的图标名称）</span>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">ICO图标</label>
+    <div class="col-sm-9 upload_pic">
+      <a href="javascript:;" class="a-upload pull-left">
+        <input type="file" name="UploadPic" accept="image/png,image/gif" class="fileToUpload" />点击这里上传文件
+      </a>
+      <span class="help-block m-b-none clearfix">（格式可支持JPG、PNG、GIF）</span>
+      <div class="fileName"></div>
+      <div class="fileSize"></div>
+      <div class="fileType"></div>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">链接</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name="Link">
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">游戏分类</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <select data-placeholder="请选择游戏类别.." name="AppCategory" class="chosen-select" multiple style="width:396px;" tabindex="4">
+          <option value=""></option>
+          <option value="热门游戏">热门游戏</option>
+          <option value="网络游戏">网络游戏</option>
+          <option value="单机游戏">单机游戏</option>
+          <option value="对战平台">对战平台</option>
+          <option value="聊天工具">聊天工具</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">显示顺序</label>
+    <label class="col-sm-1 control-label">行</label>
+    <div class="col-sm-3">
+      <select class="form-control" name="account">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+    </div>
+    <label class="col-sm-1 control-label">---</label>
+    <div class="col-sm-3">
+      <select class="form-control" name="account">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+    </div>
+    <label class="col-sm-1 control-label">列</label>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">图标颜色</label>
+    <div class="col-sm-3">
+      <select class="form-control" name="account">
+        <option>红色</option>
+        <option>蓝色</option>
+        <option>绿色</option>
+        <option>紫色</option>
+        <option>褐色</option>
+      </select>
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">动画特效</label>
+    <div class="col-sm-3">
+      <select class="form-control" name="account">
+        <option>星光闪耀</option>
+        <option>炫彩环绕</option>
+        <option>龙腾四海</option>
+      </select>
+    </div>
+    <div class="col-sm-2">
+        <button type="button" class="btn btn-info">动画管理</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-3 col-sm-offset-3">
+      <div class="checkbox checkbox-success checkbox-inline">
+        <input type="checkbox" id="1" name="GameRun" value="">
+        <label for="1">是否运行游戏</label>
+      </div>
+    </div>
+    <label class="col-sm-2 control-label">游戏编号</label>
+    <div class="col-sm-3">
+      <input type="text" id="gameNumberCombo">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">广告标签</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" name="LableComment">
+    </div>
+  </div>
+</form>

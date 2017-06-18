@@ -1,0 +1,25 @@
+/* SWITCHES by xsiry */
+.onoffswitch {
+  position: relative;
+  width: 54px;
+	margin: 0 auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.onoffswitch-inner:before {
+  content: "ON";
+  padding-left: 0px;
+  margin-left: -7px;
+  background-color: #1AB394;
+  color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+  content: "OFF";
+  padding-right: 7px;
+  margin-left: 7px;
+  background-color: #FFFFFF;
+  color: #919191;
+  text-align: right;
+}
