@@ -57,7 +57,7 @@ define(function(require, exports, module) {
         $.get('login.json', $form.serialize(), function(result) {
           if (result.status == "success") {
             saveUserInfo();
-            location.href = "../index.html#app/vertising_mnt.html";
+            location.href = "../index.html";
             $.gritter.add({
               title: '登录成功',
               sticky: false,
