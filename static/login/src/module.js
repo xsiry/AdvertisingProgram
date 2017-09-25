@@ -54,10 +54,10 @@ define(function(require, exports, module) {
         var bv = $form.data('formValidation');
 
         // Use Ajax to submit form data
-        $.get('login.json', $form.serialize(), function(result) {
-          if (result.status == "success") {
+        // $.get('login.json', $form.serialize(), function(result) {
+        //   if (true) { //result.status == "success") {
             saveUserInfo();
-            location.href = "../index.html";
+            location.href = "index.html";
             $.gritter.add({
               title: '登录成功',
               sticky: false,
@@ -66,19 +66,19 @@ define(function(require, exports, module) {
               position: 'bottom-right',
               class_name: 'gritter-success'
             });
-          } else {
-            $.gritter.add({
-              title: '登录失败',
-              text: data.msg,
-              sticky: false,
-              time: 1000,
-              speed: 500,
-              position: 'bottom-right',
-              class_name: 'gritter-error'
-            });
-            return false;
-          }
-        }, 'json');
+        //   } else {
+        //     $.gritter.add({
+        //       title: '登录失败',
+        //       text: data.msg,
+        //       sticky: false,
+        //       time: 1000,
+        //       speed: 500,
+        //       position: 'bottom-right',
+        //       class_name: 'gritter-error'
+        //     });
+        //     return false;
+        //   }
+        // }, 'json');
       });
   };
 

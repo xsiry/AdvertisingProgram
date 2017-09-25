@@ -79,16 +79,16 @@
       </div>
       <!--主体显示开始-->
       <!--显示菜单路径-->
-      <div id="ribbon" class="row wrapper border-bottom white-bg">
+      <!-- <div id="ribbon" class="row wrapper border-bottom white-bg">
         <span class="ribbon-button-alignment pull-left">
                         <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> 确认刷新当前页？" data-html="true" data-reset-msg="当前页未保存的数据将会丢失！"><i class="fa fa-refresh"></i></span>
         </span>
         <ol class="breadcrumb"></ol>
-      </div>
+      </div> -->
       <!--显示路径结束-->
       <!--显示列表开始-->
       <div id="main" role="main">
-        <div id="content">
+        <div id="navtab3" style="width: 100%;overflow:hidden;background-color: #FFF;">
         </div>
       </div>
       <!--显示列表结束-->
@@ -140,24 +140,29 @@
   <!-- CMD模块化插件 -->
   <script type="text/javascript" src="sea-modules/seajs/sea.js"></script>
   <script type="text/javascript">
-  $(document).ready(function() {
-    seajs.config({
-      base: "./sea-modules/",
-      alias: {
-        "menusAction": "menusAction/menusAction.js"
-      }
+    $(document).ready(function() {
+      seajs.config({
+        base: "./sea-modules/",
+        alias: {
+          "menusAction": "menusAction/menusAction.js"
+        }
+      });
+      // 加载入口模块
+      seajs.use("./static/index/src/main")
     });
-    // 加载入口模块
-    seajs.use("./static/index/src/main")
-  });
-  
-  BootstrapDialog.show({
-	title: '文件上传',
-	size: 'BootstrapDialog.SIZE_WIDE',
-	closeByBackdrop: false,
-	message: $('<div class="img_upload" data-url="https://www.baidu.com" data-mincount=1 data-maxcount=3 data-types="image, flash"></div>').load('app/upload_file.html')
-});
+
+//   BootstrapDialog.show({
+// 	title: '文件上传',
+// 	size: 'BootstrapDialog.SIZE_WIDE',
+// 	closeByBackdrop: false,
+// 	message: $('<div class="img_upload" data-url="https://www.baidu.com" data-mincount=1 data-maxcount=3 data-types="image, flash"></div>').load('app/upload_file.html')
+// });
   </script>
+
+  <script>
+
+
+    </script>
 </body>
 
 </html>

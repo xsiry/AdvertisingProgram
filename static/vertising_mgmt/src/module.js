@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-  $.root_ = $('div.ibox-content');
+  $.vertising_mgmt_ = $('div.vertising_mgmt');
   var manager, g, gridData;
   module.exports = {
 
@@ -11,43 +11,43 @@ define(function(require, exports, module) {
       this._bindUI();
     },
     _configText() {
-      $('div h5.mgmt_title').text('广告资源列表');
-      $('div button font.mgmt_new_btn').text('新建广告业务');
-      $('div input.name_search').prop('placeholder', '输入广告名称');
-      $('div button.name_search_btn').text('搜索');
+      $.vertising_mgmt_.find('div h5.mgmt_title').text('广告资源列表');
+      $.vertising_mgmt_.find('div button font.mgmt_new_btn').text('新建广告业务');
+      $.vertising_mgmt_.find('div input.name_search').prop('placeholder', '输入广告名称');
+      $.vertising_mgmt_.find('div button.name_search_btn').text('搜索');
     },
     _bindUI: function() {
       // bind .name_search_btn
-      $.root_.on("click", '.name_search_btn', function(e) {
+      $.vertising_mgmt_.on("click", '.name_search_btn', function(e) {
           f_search();
         })
         // bind .name_search
-      $.root_.on("keypress", '.name_search', function(e) {
+      $.vertising_mgmt_.on("keypress", '.name_search', function(e) {
           if (e.which == "13") f_search();
         })
         // bind .name_search val.length is 0
-      $.root_.on('input propertychange', '.name_search', function(e) {
+      $.vertising_mgmt_.on('input propertychange', '.name_search', function(e) {
           if ($('.name_search').val().length == 0) f_search();
         })
         // bind .v_mnt_new_modal_btn
-      $.root_.on("click", '.new_modal_btn', function(e) {
+      $.vertising_mgmt_.on("click", '.new_modal_btn', function(e) {
         newModal();
       })
 
       // bind grid edit
-      $.root_.on("click", '.row_btn_edit', function(e) {
+      $.vertising_mgmt_.on("click", '.row_btn_edit', function(e) {
         var index = $(e.currentTarget).attr('name');
         beginEdit(index);
       })
-      $.root_.on("click", '.row_btn_cancel', function(e) {
+      $.vertising_mgmt_.on("click", '.row_btn_cancel', function(e) {
         var index = $(e.currentTarget).attr('name');
         cancelEdit(index);
       })
-      $.root_.on("click", '.row_btn_end', function(e) {
+      $.vertising_mgmt_.on("click", '.row_btn_end', function(e) {
         var index = $(e.currentTarget).attr('name');
         endEdit(index);
       })
-      $.root_.on("click", '.row_btn_apply', function(e) {
+      $.vertising_mgmt_.on("click", '.row_btn_apply', function(e) {
         var index = $(e.currentTarget).attr('name');
         e.currentTarget.textContent == "上架" ? applyRow(index) : noApplyRow(index);
       })
@@ -60,7 +60,7 @@ define(function(require, exports, module) {
    */
   function f_initGrid() {
     var c = require('./columns');
-    g = manager = $("div.listDiv").ligerGrid({
+    g = manager = $.vertising_mgmt_.find("div.listDiv").ligerGrid({
       columns: c,
       onSelectRow: function(rowdata, rowindex) {
         $("#txtrowindex").val(rowindex);
@@ -83,7 +83,7 @@ define(function(require, exports, module) {
   function f_getWhere() {
     if (!g) return null;
     var clause = function(rowdata, rowindex) {
-      var key = $(".name_search").val();
+      var key = $.vertising_mgmt_.find(".name_search").val();
       return rowdata.Name.indexOf(key) > -1;
     };
     return clause;

@@ -5,6 +5,12 @@
 define(function(require, exports, module) {
 	$.root_ = $('#wrapper');
 
+	$.menusTab = $("#navtab3").ligerTab({
+    showSwitch: true,
+    ShowSwitchInTab: true,
+    contextmenu: true
+  });
+
 	$.navAsAjax = true;
 	var debugState = false,
 		menu_speed = 235,
@@ -75,8 +81,27 @@ define(function(require, exports, module) {
 				var b = window.document.URL;
 				b && b.indexOf("#", 0) > 0 && b.indexOf("#", 0) < b.length + 1 && (a = b.substring(b.indexOf("#", 0) + 1))
 			} catch (c) {}
-		if ($("#content") && a && a != "undefined") {
-			container = $("#content");
+			// Tab 显示模式 by xsiry
+			var menusName = $('nav a[href="#'+a+'"]').attr("title");
+			var menusTitle = (a ? a.split("/")[1] : '').split(".")[0];
+
+			if ($.menusTab.getTabItemCount() > 8) {
+				toastr.options = {
+          closeButton: true,
+          progressBar: true,
+          showMethod: 'slideDown',
+          timeOut: 4000
+        };
+        toastr.warning("最多只能同时打开8个标签页！");
+        return false;
+			}
+
+			if (menusTitle && menusName) $.menusTab.addTabItem({ tabid:menusTitle,text:menusName, content: '<div id='+menusTitle+'></div>' });
+
+		if (a && a != "undefined" && $("#"+menusTitle)) {
+			container = $("#"+menusTitle);
+
+			// Tab 显示模式 end
 			$("nav li.active").removeClass("active");
 			$('nav li:has(a[href="#' + a + '"])').filter(':not(.nav-header)').addClass("active");
 			var d = $('nav a[href="' + a + '"]').attr("title");
