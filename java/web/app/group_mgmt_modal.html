@@ -1,0 +1,70 @@
+
+<link rel="stylesheet" type="text/css" href="static/img_link_mgmt/style.css">
+<form class="form-horizontal" style="margin-top: 20px" id="newModalForm" role="form" enctype="multipart/form-data">
+  <input type="hidden" name="groupid">
+  <div class="form-group">
+    <label class="col-sm-3 control-label">分组名称</label>
+    <div class="col-sm-9">
+      <input type="text" style="width: 280px;height: 30px" name="groupname" >
+
+    </div>
+  </div>
+  <div class="hr-line-dashed"></div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">地区</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <select data-placeholder="请选择" id="area" name="areaid" class="chosen-select area-select" style="width:140px;">
+        </select>
+        <select data-placeholder="请选择" id="city" name="cityid" class="chosen-select city-select" style="width:140px;">
+        </select>
+      </div>
+    </div>
+  </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">备注</label>
+      <div class="col-sm-9">
+       <input type="text" name="remarks" style="width: 280px;height: 100px">
+
+      </div>
+    </div>
+ </form>
+<!--<script src="js/myjs/city.js"></script>
+<script src="js/myjs/area.js"></script>-->
+<!--<script type="text/javascript">
+    window.onload = function() {
+        $('#area').change(function() {
+            var s = $('#area').val();
+            var t = "";
+            $('#area option').each(function(idx) {
+                var txt = $(this).text(); //获取单个text
+                var val = $(this).val(); //获取单个value
+
+                if (s == null) {
+                    t = "";
+                } else if (s.indexOf(val) >= 0 && t.indexOf(txt) < 0) {
+                    //	t += "," + txt;
+                    t = txt;
+                }
+            });
+            $('#area').attr('value', t);
+        })
+        $('#area').trigger('change');
+        $('#city').change(function() {
+            var s = $('#city').val();
+            var t = "";
+            $('#city option').each(function(idx) {
+                var txt = $(this).text(); //获取单个text
+                var val = $(this).val(); //获取单个value
+
+                if (s == null) {
+                    t = "";
+                } else if (s.indexOf(val) >= 0 && t.indexOf(txt) < 0) {
+                    //	t += "," + txt;
+                    t = txt;
+                }
+            });
+            $('#city').attr('value', t);
+        })
+
+    </script>-->
